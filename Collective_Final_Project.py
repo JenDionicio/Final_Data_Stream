@@ -96,6 +96,7 @@ elif app_mode == "Visualization":
   tab2.subheader("Heat Map")
 
   # heat map code
+  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
   corrMatrix = tech_df[cols].corr()
   
   sns.heatmap(corrMatrix, annot = True, cmap ='coolwarm', fmt='.2f')
