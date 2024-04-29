@@ -175,24 +175,21 @@ elif app_mode == "Prediction":
   st.markdown("Prediction")
 
   '''
-  # Changing "Yes" and "No" to 1 and 0
-  df.loc[df['Vehicle_Damage'] == "Yes", 'Vehicle_Damage'] = 1
-  df.loc[df['Vehicle_Damage'] == "No", 'Vehicle_Damage'] = 0
   st.title("Prediction")
-  X = df[['Age', 'Region_Code', 'Driving_License','Vehicle_Damage', 'Previously_Insured']]
-  y = df['Annual_Premium']
+  X = tech_df[cols]
+  y = tech_df['NetProfitMargin_ratio']
   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
   lin_reg = LinearRegression()
   lin_reg.fit(X_train,y_train)
   pred = lin_reg.predict(X_test)
 
   plt.figure(figsize=(10,7))
-  plt.title("Actual vs. predicted Annual Premiums",fontsize=25)
-  plt.xlabel("Actual test set Annual Premiums",fontsize=18)
-  plt.ylabel("Predicted Annual Premiums", fontsize=18)
+  plt.title("Actual vs. Predicted Net Profit Margin Ratio",fontsize=25)
+  plt.xlabel("X Map",fontsize=18)
+  plt.ylabel("Net Profit Margin", fontsize=18)
   plt.scatter(x=y_test,y=pred)
-  plt.savefig('prediction.png')
-  st.image('prediction.png')
+  # plt.savefig('prediction.png')
+  # st.image('prediction.png')
 
   # Model Evaluation
   st.markdown("Evaluation")
