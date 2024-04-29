@@ -86,10 +86,10 @@ elif app_mode == "Visualization":
   #SNS plot
   tab1.subheader("SNS plot")
   # tech_df = tech_df.sample(n=10000)
-  tab1.image('bigger_pairplot.png')
+  tab1.image('bigger_pairplot.png', use_column_widtth = True)
 
   tab1.subheader("Focus Variable Pair Plot")
-  tab1.image('small_pairplot.png')
+  tab1.image('small_pairplot.png', use_column_widtth = True)
   
   
 
