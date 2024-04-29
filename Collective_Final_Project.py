@@ -226,7 +226,7 @@ elif app_mode == "Prediction":
 
   plt.show()
 
-  print(f"Prediction of {target_variable} against all other variables:")
+  print(f"Prediction of NetProfitMargin_ratio against all other variables:")
   print(f"Mean Squared Error: {mse}")
   print(f"R-squared: {r2}")
   print("------------------------------------")
