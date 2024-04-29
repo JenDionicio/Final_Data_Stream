@@ -98,27 +98,28 @@ elif app_mode == "Visualization":
   # heat map code
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
   corrMatrix = tech_df[cols].corr()
+  fig = sns.heatmap(corrMatrix, annot=True, cmap='coolwarm', fmt='.2f')
   
   tab2.write("Heatmap Correlation")
-  tab2.pyplot(sns.heatmap(corrMatrix, annot=True, cmap='coolwarm', fmt='.2f'))
+  tab2.pyplot(fig)
 
 
-  highRank = tech_df.groupby(tech_df['ESG_ranking']> tech_df['ESG_ranking'].mean() )
-  highRank.get_group(1).describe()
-  highRank.get_group(0).describe()
+  # highRank = tech_df.groupby(tech_df['ESG_ranking']> tech_df['ESG_ranking'].mean() )
+  # highRank.get_group(1).describe()
+  # highRank.get_group(0).describe()
 
 
-  # Line Chart
-  average_volatility = (highRank.get_group(1)['Volatility_Buy'] + highRank.get_group(1)['Volatility_sell']) / 2
+  # # Line Chart
+  # average_volatility = (highRank.get_group(1)['Volatility_Buy'] + highRank.get_group(1)['Volatility_sell']) / 2
 
-  # Convert the group to a DataFrame to ensure modifications are applied correctly
-  group_df = highRank.get_group(1).copy()
+  # # Convert the group to a DataFrame to ensure modifications are applied correctly
+  # group_df = highRank.get_group(1).copy()
   
-  # Add the calculated average volatility as a new column
-  group_df['Average_Volatility'] = average_volatility
+  # # Add the calculated average volatility as a new column
+  # group_df['Average_Volatility'] = average_volatility
   
-  # Update the original DataFrame with the modified group
-  highRank.groups[1] = group_df
+  # # Update the original DataFrame with the modified group
+  # highRank.groups[1] = group_df
 
   # sns.lmplot(x='Average_Volatility', y='EPS_ratio', data=highRank.get_group(0))
 
