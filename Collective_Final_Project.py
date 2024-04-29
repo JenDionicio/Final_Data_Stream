@@ -171,37 +171,37 @@ elif app_mode == "Visualization":
 #   tab1.pyplot(fig)
 #   '''
 
-# elif app_mode == "Prediction":
-#   st.markdown("Prediction")
+elif app_mode == "Prediction":
+  st.markdown("Prediction")
 
-#   '''
-#   # Changing "Yes" and "No" to 1 and 0
-#   df.loc[df['Vehicle_Damage'] == "Yes", 'Vehicle_Damage'] = 1
-#   df.loc[df['Vehicle_Damage'] == "No", 'Vehicle_Damage'] = 0
-#   st.title("Prediction")
-#   X = df[['Age', 'Region_Code', 'Driving_License','Vehicle_Damage', 'Previously_Insured']]
-#   y = df['Annual_Premium']
-#   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-#   lin_reg = LinearRegression()
-#   lin_reg.fit(X_train,y_train)
-#   pred = lin_reg.predict(X_test)
+  '''
+  # Changing "Yes" and "No" to 1 and 0
+  df.loc[df['Vehicle_Damage'] == "Yes", 'Vehicle_Damage'] = 1
+  df.loc[df['Vehicle_Damage'] == "No", 'Vehicle_Damage'] = 0
+  st.title("Prediction")
+  X = df[['Age', 'Region_Code', 'Driving_License','Vehicle_Damage', 'Previously_Insured']]
+  y = df['Annual_Premium']
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  lin_reg = LinearRegression()
+  lin_reg.fit(X_train,y_train)
+  pred = lin_reg.predict(X_test)
 
-#   plt.figure(figsize=(10,7))
-#   plt.title("Actual vs. predicted Annual Premiums",fontsize=25)
-#   plt.xlabel("Actual test set Annual Premiums",fontsize=18)
-#   plt.ylabel("Predicted Annual Premiums", fontsize=18)
-#   plt.scatter(x=y_test,y=pred)
-#   plt.savefig('prediction.png')
-#   st.image('prediction.png')
+  plt.figure(figsize=(10,7))
+  plt.title("Actual vs. predicted Annual Premiums",fontsize=25)
+  plt.xlabel("Actual test set Annual Premiums",fontsize=18)
+  plt.ylabel("Predicted Annual Premiums", fontsize=18)
+  plt.scatter(x=y_test,y=pred)
+  plt.savefig('prediction.png')
+  st.image('prediction.png')
 
-#   # Model Evaluation
-#   st.markdown("Evaluation")
-#   coeff_df = pd.DataFrame(lin_reg.coef_, X.columns, columns=['Coefficient'])
-#   st.dataframe(coeff_df)
-#   MAE = metrics.mean_absolute_error(y_test, pred)
-#   MSE = metrics.mean_squared_error(y_test, pred)
-#   RMSE = np.sqrt(metrics.mean_squared_error(y_test, pred))
-#   st.write('MAE:', MAE)
-#   st.write('MSE:', MSE)
-#   st.write('RMSE:', RMSE)
-#   '''
+  # Model Evaluation
+  st.markdown("Evaluation")
+  coeff_df = pd.DataFrame(lin_reg.coef_, X.columns, columns=['Coefficient'])
+  st.dataframe(coeff_df)
+  MAE = metrics.mean_absolute_error(y_test, pred)
+  MSE = metrics.mean_squared_error(y_test, pred)
+  RMSE = np.sqrt(metrics.mean_squared_error(y_test, pred))
+  st.write('MAE:', MAE)
+  st.write('MSE:', MSE)
+  st.write('RMSE:', RMSE)
+  '''
