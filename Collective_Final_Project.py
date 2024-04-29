@@ -209,26 +209,20 @@ elif app_mode == "Prediction":
   y_pred = model.predict(X_test)
 
   # Calculate accuracy metrics
-  mse = mean_squared_error(y_test, y_pred)
-  r2 = r2_score(y_test, y_pred)
-
-  # Create a DataFrame to store actual and predicted values
-  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
-
-  # Plot actual vs. predicted values using Seaborn
-  sns.scatterplot(x='Actual', y='Predicted', data=results_df)
-  plt.title(f'Actual vs. Predicted for NetProfitMargin_ratio')
-  plt.xlabel('Actual')
-  plt.ylabel('Predicted')
-
-  # Add a regression line
-  sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red')
-
-  plt.show()
-
-  print(f"Prediction of NetProfitMargin_ratio against all other variables:")
-  print(f"Mean Squared Error: {mse}")
-  print(f"R-squared: {r2}")
-  print("------------------------------------")
+  st.subheader('Actual vs. Predicted for NetProfitMargin_ratio')
+  scatter_plot = sns.scatterplot(x='Actual', y='Predicted', data=results_df)
+  scatter_plot.set_title('Actual vs. Predicted for NetProfitMargin_ratio')
+  scatter_plot.set_xlabel('Actual')
+  scatter_plot.set_ylabel('Predicted')
+  sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
+  st.pyplot()
+  
+  # Metrics
+  mse = mean_squared_error(results_df['Actual'], results_df['Predicted'])
+  r2 = r2_score(results_df['Actual'], results_df['Predicted'])
+  
+  st.write("Prediction of NetProfitMargin_ratio against all other variables:")
+  st.write(f"Mean Squared Error: {mse}")
+  st.write(f"R-squared: {r2}")
 
 
