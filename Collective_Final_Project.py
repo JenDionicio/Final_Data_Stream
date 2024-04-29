@@ -219,7 +219,7 @@ elif app_mode == "Prediction":
   scatter_plot.set_xlabel('Actual')
   scatter_plot.set_ylabel('Predicted')
   sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
-  st.pyplot()
+  st.pyplot(scatter_plot)
   
   # Metrics
   mse = mean_squared_error(results_df['Actual'], results_df['Predicted'])
