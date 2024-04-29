@@ -188,31 +188,7 @@ elif app_mode == "Prediction":
   plt.xlabel("X Map",fontsize=18)
   plt.ylabel("Net Profit Margin", fontsize=18)
   plt.scatter(x=y_test,y=pred)
-  # Select predictors (all other variables except the target variable)
-  X = df.drop(columns=[target_variable])
-
-  # Split the data into training and testing sets
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-  # Fit linear regression model
-  model = LinearRegression()
-  model.fit(X_train, y_train)
-
-  # Make predictions
-  y_pred = model.predict(X_test)
-
-  # Calculate accuracy metrics
-  mse = mean_squared_error(y_test, y_pred)
-  r2 = r2_score(y_test, y_pred)
-
-  # Create a DataFrame to store actual and predicted values
-  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
-
-  # Plot actual vs. predicted values using Seaborn
-  sns.scatterplot(x='Actual', y='Predicted', data=results_df)
-  plt.title(f'Actual vs. Predicted for {target_variable}')
-  plt.xlabel('Actual')
-  plt.ylabel('Predicted')
+  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': pred})
 
   # Add a regression line
   sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red')
