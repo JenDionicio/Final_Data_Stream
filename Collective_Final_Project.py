@@ -179,17 +179,17 @@ elif app_mode == "Prediction":
   tech_df = tech_df.sample(n=10000)
   y = tech_df['NetProfitMargin_ratio']
   X = tech_df.drop(columns="NetProfitMargin_ratio")  
-  # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-  # lin_reg = LinearRegression()
-  # lin_reg.fit(X_train,y_train)
-  # pred = lin_reg.predict(X_test)
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  lin_reg = LinearRegression()
+  lin_reg.fit(X_train,y_train)
+  pred = lin_reg.predict(X_test)
 
-  # plt.figure(figsize=(10,7))
-  # plt.title("Actual vs. Predicted Net Profit Margin Ratio",fontsize=25)
-  # plt.xlabel("X Map",fontsize=18)
-  # plt.ylabel("Net Profit Margin", fontsize=18)
-  # plt.scatter(x=y_test,y=pred)
-  # results_df = pd.DataFrame({'Actual': y_test, 'Predicted': pred})
+  plt.figure(figsize=(10,7))
+  plt.title("Actual vs. Predicted Net Profit Margin Ratio",fontsize=25)
+  plt.xlabel("X Map",fontsize=18)
+  plt.ylabel("Net Profit Margin", fontsize=18)
+  plt.scatter(x=y_test,y=pred)
+  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': pred})
 
   # # Add a regression line
   # sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red')
