@@ -99,9 +99,8 @@ elif app_mode == "Visualization":
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
   corrMatrix = tech_df[cols].corr()
   
-  sns.heatmap(corrMatrix, annot = True, cmap ='coolwarm', fmt='.2f')
-  plt.title('Heatmap Correlation')
-  plt.show()
+  tab2.write("Heatmap Correlation")
+  tab2.pyplot(sns.heatmap(corrMatrix, annot=True, cmap='coolwarm', fmt='.2f'))
 
 
   highRank = tech_df.groupby(tech_df['ESG_ranking']> tech_df['ESG_ranking'].mean() )
