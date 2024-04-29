@@ -207,7 +207,11 @@ elif app_mode == "Prediction":
 
   # Make predictions
   y_pred = model.predict(X_test)
+  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
 
+
+  
+  
   # Calculate accuracy metrics
   st.subheader('Actual vs. Predicted for NetProfitMargin_ratio')
   scatter_plot = sns.scatterplot(x='Actual', y='Predicted', data=results_df)
