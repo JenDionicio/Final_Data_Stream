@@ -179,8 +179,8 @@ elif app_mode == "Prediction":
   tech_df = tech_df.sample(n=10000)
   y = tech_df['NetProfitMargin_ratio']
   X = tech_df.drop(columns="NetProfitMargin_ratio")  
-  # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-  # lin_reg = LinearRegression()
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  lin_reg = LinearRegression()
   # lin_reg.fit(X_train,y_train)
   # pred = lin_reg.predict(X_test)
 
