@@ -234,8 +234,8 @@ elif app_mode == "Prediction":
   st.write(f"R-squared: {r2}")
 
   
-  # Assuming df is your DataFrame
-  
+    # Assuming df is your DataFrame
+    
   cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']
   temp_df = df[cols].copy()
   label_encoder = LabelEncoder()
@@ -263,10 +263,10 @@ elif app_mode == "Prediction":
   st.write("Accuracy:", accuracy)
   
   # Plotting decision tree
-  feature_cols = X.columns
-  dot_data = export_graphviz(clf, out_file=None, feature_names=feature_cols, filled=True, rounded=True, special_characters=True)
-  graph = graphviz.Source(dot_data)
-  st.graphviz_chart(graph)
+  st.subheader("Decision Tree Visualization")
+  plt.figure(figsize=(15, 10))
+  plot_tree(clf, feature_names=X.columns, class_names=clf.classes_, filled=True, rounded=True)
+  st.pyplot()
 
   
   
