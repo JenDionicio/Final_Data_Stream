@@ -172,41 +172,63 @@ elif app_mode == "Visualization":
 #   '''
 
 elif app_mode == "Prediction":
-  # st.markdown("Prediction")
-
-  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
   st.title("Prediction")
-  tech_df = tech_df.sample(n=10000)
-  y = tech_df['NetProfitMargin_ratio']
-  X = tech_df.drop(columns="NetProfitMargin_ratio")  
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-  lin_reg = LinearRegression()
-  lin_reg.fit(X_train,y_train)
-  # pred = lin_reg.predict(X_test)
-
-  # plt.figure(figsize=(10,7))
-  # plt.title("Actual vs. Predicted Net Profit Margin Ratio",fontsize=25)
-  # plt.xlabel("X Map",fontsize=18)
-  # plt.ylabel("Net Profit Margin", fontsize=18)
-  # plt.scatter(x=y_test,y=pred)
-  # results_df = pd.DataFrame({'Actual': y_test, 'Predicted': pred})
-
-  # # Add a regression line
-  # sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red')
-
-  # plt.show()
-
-  # plt.savefig('prediction.png')
-  # st.image('prediction.png')
-
-  # Model Evaluation
-  # st.markdown("Evaluation")
-  # coeff_df = pd.DataFrame(lin_reg.coef_, X.columns, columns=['Coefficient'])
-  # st.dataframe(coeff_df)
-  # MAE = metrics.mean_absolute_error(y_test, pred)
-  # MSE = metrics.mean_squared_error(y_test, pred)
-  # RMSE = np.sqrt(metrics.mean_squared_error(y_test, pred))
-  # st.write('MAE:', MAE)
-  # st.write('MSE:', MSE)
-  # st.write('RMSE:', RMSE)
+  from sklearn.model_selection import train_test_split
+  from sklearn.linear_model import LinearRegression
+  from sklearn.metrics import mean_squared_error, r2_score
+  import pandas as pd
+  from sklearn.preprocessing import LabelEncoder
+  import seaborn as sns
+  import matplotlib.pyplot as plt
   
+  # Assuming df is your DataFrame containing all variables
+  # df = pd.read_csv("transactions_dataset.csv")
+  #variables = df.columns
+  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
+  temp_df = df[cols]
+  # Get list of all variable names
+  label_encoder = LabelEncoder()
+  for name in list(cols):
+    temp_df[name] = label_encoder.fit_transform(temp_df[name])
+  
+  #for target_variable in variables
+  # Select the target variable for prediction
+  y = temp_df['NetProfitMargin_ratio']
+
+  # Select predictors (all other variables except the target variable)
+  X = temp_df.drop(columns=['NetProfitMargin_ratio'])
+
+  # Split the data into training and testing sets
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+  # Fit linear regression model
+  model = LinearRegression()
+  model.fit(X_train, y_train)
+
+  # Make predictions
+  y_pred = model.predict(X_test)
+
+  # Calculate accuracy metrics
+  mse = mean_squared_error(y_test, y_pred)
+  r2 = r2_score(y_test, y_pred)
+
+  # Create a DataFrame to store actual and predicted values
+  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+
+  # Plot actual vs. predicted values using Seaborn
+  sns.scatterplot(x='Actual', y='Predicted', data=results_df)
+  plt.title(f'Actual vs. Predicted for NetProfitMargin_ratio')
+  plt.xlabel('Actual')
+  plt.ylabel('Predicted')
+
+  # Add a regression line
+  sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red')
+
+  plt.show()
+
+  print(f"Prediction of {target_variable} against all other variables:")
+  print(f"Mean Squared Error: {mse}")
+  print(f"R-squared: {r2}")
+  print("------------------------------------")
+
+
