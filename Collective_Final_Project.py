@@ -9,7 +9,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
-from sklearn import metrics
+from sklearn.preprocessing import LabelEncoder
 import graphviz
 
 
@@ -233,14 +233,6 @@ elif app_mode == "Prediction":
   st.write(f"Mean Squared Error: {mse}")
   st.write(f"R-squared: {r2}")
 
-
-  import streamlit as st
-  import pandas as pd
-  from sklearn.preprocessing import LabelEncoder
-  from sklearn.model_selection import train_test_split
-  from sklearn.tree import DecisionTreeClassifier, export_graphviz
-  from sklearn import metrics
-  import graphviz
   
   # Assuming df is your DataFrame
   
