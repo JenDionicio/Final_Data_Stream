@@ -234,6 +234,17 @@ elif app_mode == "Prediction":
   st.write(f"R-squared: {r2}")
 
 
+  import streamlit as st
+  import pandas as pd
+  from sklearn.preprocessing import LabelEncoder
+  from sklearn.model_selection import train_test_split
+  from sklearn.tree import DecisionTreeClassifier, export_graphviz
+  from sklearn import metrics
+  import graphviz
+  
+  # Assuming df is your DataFrame
+  
+  cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']
   temp_df = df[cols].copy()
   label_encoder = LabelEncoder()
   for name in cols:
@@ -264,6 +275,7 @@ elif app_mode == "Prediction":
   dot_data = export_graphviz(clf, out_file=None, feature_names=feature_cols, filled=True, rounded=True, special_characters=True)
   graph = graphviz.Source(dot_data)
   st.graphviz_chart(graph)
+
   
   
   
