@@ -213,7 +213,7 @@ elif app_mode == "Prediction":
   
   
   # Calculate accuracy metrics
-  st.subheader('Actual vs. Predicted for NetProfitMargin_ratio')
+  st.subheader('Actual vs. Predicted for Net Profit Margin ratio')
   scatter_plot = sns.scatterplot(x='Actual', y='Predicted', data=results_df)
   scatter_plot.set_title('Actual vs. Predicted for NetProfitMargin_ratio')
   scatter_plot.set_xlabel('Actual')
