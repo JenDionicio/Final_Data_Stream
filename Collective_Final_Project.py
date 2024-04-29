@@ -174,7 +174,7 @@ elif app_mode == "Visualization":
 elif app_mode == "Prediction":
   st.markdown("Prediction")
 
-  '''
+  
   st.title("Prediction")
   X = tech_df[cols]
   y = tech_df['NetProfitMargin_ratio']
@@ -201,4 +201,4 @@ elif app_mode == "Prediction":
   st.write('MAE:', MAE)
   st.write('MSE:', MSE)
   st.write('RMSE:', RMSE)
-  '''
+  
