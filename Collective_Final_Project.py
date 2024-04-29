@@ -184,12 +184,12 @@ elif app_mode == "Prediction":
   lin_reg.fit(X_train,y_train)
   pred = lin_reg.predict(X_test)
 
-  plt.figure(figsize=(10,7))
-  plt.title("Actual vs. Predicted Net Profit Margin Ratio",fontsize=25)
-  plt.xlabel("X Map",fontsize=18)
-  plt.ylabel("Net Profit Margin", fontsize=18)
-  plt.scatter(x=y_test,y=pred)
-  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': pred})
+  # plt.figure(figsize=(10,7))
+  # plt.title("Actual vs. Predicted Net Profit Margin Ratio",fontsize=25)
+  # plt.xlabel("X Map",fontsize=18)
+  # plt.ylabel("Net Profit Margin", fontsize=18)
+  # plt.scatter(x=y_test,y=pred)
+  # results_df = pd.DataFrame({'Actual': y_test, 'Predicted': pred})
 
   # # Add a regression line
   # sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red')
