@@ -174,7 +174,7 @@ elif app_mode == "Visualization":
 elif app_mode == "Prediction":
   st.markdown("Prediction")
 
-  
+  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
   st.title("Prediction")
   X = tech_df[cols]
   y = tech_df['NetProfitMargin_ratio']
