@@ -81,17 +81,49 @@ elif app_mode == "Visualization":
 
 
   # DATA VISUALISATION
-  tab1, tab2, tab3, tab4 = st.tabs(["SNS Plot", "Bar Chart", "Line Chart", "Pie Plot"])
+  tab1, tab2, tab3, tab4 = st.tabs(["SNS Plot", "Correlation Map", "Line Chart", "Pie Plot"])
 
   #SNS plot
   tab1.subheader("SNS plot")
-  # tech_df = tech_df.sample(n=10000)
+  tech_df = tech_df.sample(n=10000)
   tab1.image('bigger_pairplot.png', use_column_width = True)
 
   tab1.subheader("Focus Variable Pair Plot")
   tab1.image('smaller_pairplot.png', use_column_width = True)
+
+
+  # Heat Map
+  tab2.subheader("Heat Map")
+
+  # heat map code
+  corrMatrix = tech_df[cols].corr()
   
+  sns.heatmap(corrMatrix, annot = True, cmap ='coolwarm', fmt='.2f')
+  mlt.title('Heatmap Correlation')
+  mlt.show()
+
+
+  highRank = tech_df.groupby(tech_df['ESG_ranking']> tech_df['ESG_ranking'].mean() )
+  highRank.get_group(1).describe()
+  highRank.get_group(0).describe()
+
+
+  # Line Chart
+  average_volatility = (highRank.get_group(1)['Volatility_Buy'] + highRank.get_group(1)['Volatility_sell']) / 2
+
+  # Convert the group to a DataFrame to ensure modifications are applied correctly
+  group_df = highRank.get_group(1).copy()
   
+  # Add the calculated average volatility as a new column
+  group_df['Average_Volatility'] = average_volatility
+  
+  # Update the original DataFrame with the modified group
+  highRank.groups[1] = group_df
+
+  # sns.lmplot(x='Average_Volatility', y='EPS_ratio', data=highRank.get_group(0))
+
+
+                  
 
 #   #Bar Graph
 #   # User input for x-variable
