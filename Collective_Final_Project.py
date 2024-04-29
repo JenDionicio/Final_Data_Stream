@@ -86,7 +86,7 @@ elif app_mode == "Visualization":
   #SNS plot
   tab1.subheader("SNS plot")
   tech_df = tech_df.sample(n=10000)
-  fig = sns.pairplot(tech_df)
+  st.image('bigger_pairplot.png')
   tab1.pyplot(fig)
 
   #Bar Graph
