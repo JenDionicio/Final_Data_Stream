@@ -172,12 +172,13 @@ elif app_mode == "Visualization":
 #   '''
 
 elif app_mode == "Prediction":
-  st.markdown("Prediction")
+  # st.markdown("Prediction")
 
-  # cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
-  # st.title("Prediction")
-  # y = tech_df['NetProfitMargin_ratio']
-  # X = tech_df.drop(columns="NetProfitMargin_ratio")  
+  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
+  st.title("Prediction")
+  tech_df = tech_df.sample(n=10000)
+  y = tech_df['NetProfitMargin_ratio']
+  X = tech_df.drop(columns="NetProfitMargin_ratio")  
   # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
   # lin_reg = LinearRegression()
   # lin_reg.fit(X_train,y_train)
