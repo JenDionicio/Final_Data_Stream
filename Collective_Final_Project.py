@@ -188,59 +188,36 @@ elif app_mode == "Prediction":
   plt.xlabel("X Map",fontsize=18)
   plt.ylabel("Net Profit Margin", fontsize=18)
   plt.scatter(x=y_test,y=pred)
-  from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
-import pandas as pd
-from sklearn.preprocessing import LabelEncoder
-import seaborn as sns
-import matplotlib.pyplot as plt
+  # Select predictors (all other variables except the target variable)
+  X = df.drop(columns=[target_variable])
 
-# Assuming df is your DataFrame containing all variables
-df = pd.read_csv("transactions_dataset.csv")
-variables = df.columns
+  # Split the data into training and testing sets
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Get list of all variable names
-label_encoder = LabelEncoder()
-for name in list(df.columns):
-  df[name] = label_encoder.fit_transform(df[name])
+  # Fit linear regression model
+  model = LinearRegression()
+  model.fit(X_train, y_train)
 
+  # Make predictions
+  y_pred = model.predict(X_test)
 
-#for target_variable in variables:
-for target_variable in list(df.columns):
-    # Select the target variable for prediction
-    y = df[target_variable]
+  # Calculate accuracy metrics
+  mse = mean_squared_error(y_test, y_pred)
+  r2 = r2_score(y_test, y_pred)
 
-    # Select predictors (all other variables except the target variable)
-    X = df.drop(columns=[target_variable])
+  # Create a DataFrame to store actual and predicted values
+  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
 
-    # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  # Plot actual vs. predicted values using Seaborn
+  sns.scatterplot(x='Actual', y='Predicted', data=results_df)
+  plt.title(f'Actual vs. Predicted for {target_variable}')
+  plt.xlabel('Actual')
+  plt.ylabel('Predicted')
 
-    # Fit linear regression model
-    model = LinearRegression()
-    model.fit(X_train, y_train)
+  # Add a regression line
+  sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red')
 
-    # Make predictions
-    y_pred = model.predict(X_test)
-
-    # Calculate accuracy metrics
-    mse = mean_squared_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
-
-    # Create a DataFrame to store actual and predicted values
-    results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
-
-    # Plot actual vs. predicted values using Seaborn
-    sns.scatterplot(x='Actual', y='Predicted', data=results_df)
-    plt.title(f'Actual vs. Predicted for {target_variable}')
-    plt.xlabel('Actual')
-    plt.ylabel('Predicted')
-
-    # Add a regression line
-    sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red')
-
-    plt.show()
+  plt.show()
 
   # plt.savefig('prediction.png')
   # st.image('prediction.png')
