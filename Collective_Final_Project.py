@@ -100,8 +100,8 @@ elif app_mode == "Visualization":
   corrMatrix = tech_df[cols].corr()
   
   sns.heatmap(corrMatrix, annot = True, cmap ='coolwarm', fmt='.2f')
-  mlt.title('Heatmap Correlation')
-  mlt.show()
+  plt.title('Heatmap Correlation')
+  plt.show()
 
 
   highRank = tech_df.groupby(tech_df['ESG_ranking']> tech_df['ESG_ranking'].mean() )
