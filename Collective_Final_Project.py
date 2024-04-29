@@ -230,3 +230,36 @@ elif app_mode == "Prediction":
   st.write(f"R-squared: {r2}")
 
 
+  temp_df = df[cols].copy()
+  label_encoder = LabelEncoder()
+  for name in cols:
+      temp_df[name] = label_encoder.fit_transform(temp_df[name])
+  
+  X = temp_df.drop(["NetProfitMargin_ratio"], axis=1)
+  y = temp_df.NetProfitMargin_ratio  # Target variable
+  
+  # Split dataset into training set and test set
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)  # 70% training and 30% test
+  
+  # Create Decision Tree classifer object
+  clf = DecisionTreeClassifier()
+  # clf = DecisionTreeClassifier(max_depth=3)
+  
+  # Train Decision Tree Classifier
+  clf = clf.fit(X_train, y_train)
+  
+  # Predict the response for test dataset
+  y_pred = clf.predict(X_test)
+  
+  # Model Accuracy, how often is the classifier correct?
+  accuracy = metrics.accuracy_score(y_test, y_pred)
+  st.write("Accuracy:", accuracy)
+  
+  # Plotting decision tree
+  feature_cols = X.columns
+  dot_data = export_graphviz(clf, out_file=None, feature_names=feature_cols, filled=True, rounded=True, special_characters=True)
+  graph = graphviz.Source(dot_data)
+  st.graphviz_chart(graph)
+  
+  
+  
