@@ -89,7 +89,7 @@ elif app_mode == "Visualization":
   tab1.image('bigger_pairplot.png', use_column_width = True)
 
   tab1.subheader("Focus Variable Pair Plot")
-  tab1.image('small_pairplot.png', use_column_width = True)
+  tab1.image('smaller_pairplot.png', use_column_width = True)
   
   
 
