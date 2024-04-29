@@ -89,86 +89,86 @@ elif app_mode == "Visualization":
   tab1.image('bigger_pairplot.png')
 
   tab1.subheader("Focus Variable Pair Plot")
-  st.image('small_pairplot.png')
+  tab1.image('small_pairplot.png')
   
   
 
-  #Bar Graph
-  # User input for x-variable
-  columns = ['Region_Code', 'Gender', 'Vehicle_Age']
-  x_variable = tab2.selectbox("Select x-variable:", columns)
-  tab2.subheader(f"{x_variable} vs Price (INR)")
-  #data_by_variable = df.groupby(x_variable)['Annual_Premium'].mean()
-  #tab2.bar_chart(data_by_variable)
+#   #Bar Graph
+#   # User input for x-variable
+#   columns = ['Region_Code', 'Gender', 'Vehicle_Age']
+#   x_variable = tab2.selectbox("Select x-variable:", columns)
+#   tab2.subheader(f"{x_variable} vs Price (INR)")
+#   #data_by_variable = df.groupby(x_variable)['Annual_Premium'].mean()
+#   #tab2.bar_chart(data_by_variable)
 
-  #Line Graph
-  tab3.subheader("Age vs Price")
-  #age_by_price = df.groupby('Age')['Annual_Premium'].mean()
-  #tab3.line_chart(age_by_price)
+#   #Line Graph
+#   tab3.subheader("Age vs Price")
+#   #age_by_price = df.groupby('Age')['Annual_Premium'].mean()
+#   #tab3.line_chart(age_by_price)
 
-  '''
-  tab4.subheader("Pie plot")
-  tab4.subheader("Response distribution by Vehicle Damage")
-  response_counts = df.groupby(['Vehicle_Damage', 'Response']).size().unstack(fill_value=0)
-  fig, ax = plt.subplots()
-  colors = ['#ff9999','#66b3ff']
-  damage_counts = response_counts.loc[1]
-  percentages = (damage_counts.values / damage_counts.sum()) * 100
-  labels = ['Yes', 'No']
-  ax.pie(percentages, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-  ax.axis('equal')
-  tab4.pyplot(fig)
+#   '''
+#   tab4.subheader("Pie plot")
+#   tab4.subheader("Response distribution by Vehicle Damage")
+#   response_counts = df.groupby(['Vehicle_Damage', 'Response']).size().unstack(fill_value=0)
+#   fig, ax = plt.subplots()
+#   colors = ['#ff9999','#66b3ff']
+#   damage_counts = response_counts.loc[1]
+#   percentages = (damage_counts.values / damage_counts.sum()) * 100
+#   labels = ['Yes', 'No']
+#   ax.pie(percentages, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+#   ax.axis('equal')
+#   tab4.pyplot(fig)
 
-  #Pie Plot2
-  tab4.subheader("Response Distribution by Not Previously Insured")
-  response_counts = df.groupby(['Previously_Insured', 'Response']).size().unstack(fill_value=0)
-  fig, ax = plt.subplots()
-  colors = ['#ff9999','#66b3ff']
-  prev_insurance_counts = response_counts.loc[0]
-  percentages = (prev_insurance_counts.values / prev_insurance_counts.sum()) * 100
-  labels = ['Yes', 'No']
-  ax.pie(percentages, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-  ax.axis('equal')
-  tab4.pyplot(fig)
+#   #Pie Plot2
+#   tab4.subheader("Response Distribution by Not Previously Insured")
+#   response_counts = df.groupby(['Previously_Insured', 'Response']).size().unstack(fill_value=0)
+#   fig, ax = plt.subplots()
+#   colors = ['#ff9999','#66b3ff']
+#   prev_insurance_counts = response_counts.loc[0]
+#   percentages = (prev_insurance_counts.values / prev_insurance_counts.sum()) * 100
+#   labels = ['Yes', 'No']
+#   ax.pie(percentages, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+#   ax.axis('equal')
+#   tab4.pyplot(fig)
 
 
-  tab1, tab2, tab3, tab4 = st.tabs(["SNS Plot", "Bar Chart", "Line Chart", "Pie Plot"])
+#   tab1, tab2, tab3, tab4 = st.tabs(["SNS Plot", "Bar Chart", "Line Chart", "Pie Plot"])
 
-  fig = sns.pairplot(df)
-  tab1.pyplot(fig)
-  '''
+#   fig = sns.pairplot(df)
+#   tab1.pyplot(fig)
+#   '''
 
-elif app_mode == "Prediction":
-  st.markdown("Prediction")
+# elif app_mode == "Prediction":
+#   st.markdown("Prediction")
 
-  '''
-  # Changing "Yes" and "No" to 1 and 0
-  df.loc[df['Vehicle_Damage'] == "Yes", 'Vehicle_Damage'] = 1
-  df.loc[df['Vehicle_Damage'] == "No", 'Vehicle_Damage'] = 0
-  st.title("Prediction")
-  X = df[['Age', 'Region_Code', 'Driving_License','Vehicle_Damage', 'Previously_Insured']]
-  y = df['Annual_Premium']
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-  lin_reg = LinearRegression()
-  lin_reg.fit(X_train,y_train)
-  pred = lin_reg.predict(X_test)
+#   '''
+#   # Changing "Yes" and "No" to 1 and 0
+#   df.loc[df['Vehicle_Damage'] == "Yes", 'Vehicle_Damage'] = 1
+#   df.loc[df['Vehicle_Damage'] == "No", 'Vehicle_Damage'] = 0
+#   st.title("Prediction")
+#   X = df[['Age', 'Region_Code', 'Driving_License','Vehicle_Damage', 'Previously_Insured']]
+#   y = df['Annual_Premium']
+#   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+#   lin_reg = LinearRegression()
+#   lin_reg.fit(X_train,y_train)
+#   pred = lin_reg.predict(X_test)
 
-  plt.figure(figsize=(10,7))
-  plt.title("Actual vs. predicted Annual Premiums",fontsize=25)
-  plt.xlabel("Actual test set Annual Premiums",fontsize=18)
-  plt.ylabel("Predicted Annual Premiums", fontsize=18)
-  plt.scatter(x=y_test,y=pred)
-  plt.savefig('prediction.png')
-  st.image('prediction.png')
+#   plt.figure(figsize=(10,7))
+#   plt.title("Actual vs. predicted Annual Premiums",fontsize=25)
+#   plt.xlabel("Actual test set Annual Premiums",fontsize=18)
+#   plt.ylabel("Predicted Annual Premiums", fontsize=18)
+#   plt.scatter(x=y_test,y=pred)
+#   plt.savefig('prediction.png')
+#   st.image('prediction.png')
 
-  # Model Evaluation
-  st.markdown("Evaluation")
-  coeff_df = pd.DataFrame(lin_reg.coef_, X.columns, columns=['Coefficient'])
-  st.dataframe(coeff_df)
-  MAE = metrics.mean_absolute_error(y_test, pred)
-  MSE = metrics.mean_squared_error(y_test, pred)
-  RMSE = np.sqrt(metrics.mean_squared_error(y_test, pred))
-  st.write('MAE:', MAE)
-  st.write('MSE:', MSE)
-  st.write('RMSE:', RMSE)
-  '''
+#   # Model Evaluation
+#   st.markdown("Evaluation")
+#   coeff_df = pd.DataFrame(lin_reg.coef_, X.columns, columns=['Coefficient'])
+#   st.dataframe(coeff_df)
+#   MAE = metrics.mean_absolute_error(y_test, pred)
+#   MSE = metrics.mean_squared_error(y_test, pred)
+#   RMSE = np.sqrt(metrics.mean_squared_error(y_test, pred))
+#   st.write('MAE:', MAE)
+#   st.write('MSE:', MSE)
+#   st.write('RMSE:', RMSE)
+#   '''
