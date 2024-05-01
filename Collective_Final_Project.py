@@ -10,7 +10,6 @@ from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.preprocessing import LabelEncoder
-from sklearn.tree import DecisionTreeRegressor
 import graphviz
 
 
@@ -272,107 +271,45 @@ elif app_mode == "Prediction":
 
   # MLFLOW:
  
-  # Function to process data
-  def process_data(X, y, test_size=0.3, random_state=42):
-      """
-      Split the dataset into training and testing sets.
+  if os.path.exists("best_dt_model"):
+      shutil.rmtree("best_dt_model")
   
-      Parameters
-      ----------
-      X : array-like
-          Feature dataset.
-      y : array-like
-          Target values.
-      test_size : float, optional
-          Proportion of the dataset to include in the test split.
-      random_state : int, optional
-          Controls the shuffling applied to the data before applying the split.
+  # Load dataset and preprocess
+  df = pd.read_csv("transactions_dataset.csv")
+  cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
+  temp_df = df[cols]
   
-      Returns
-      -------
-      X_train, X_test, y_train, y_test : tuple of arrays
-          Training and testing sets.
-      """
-      # Process your data here
-      # Load your dataset
-      df = pd.read_csv("transactions_dataset.csv")
-      cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
-      temp_df = df[cols]
+  # Select the target variable for prediction
+  y = temp_df["NetProfitMargin_ratio"]
   
-      # Select the target variable for prediction
-      y = temp_df["NetProfitMargin_ratio"]
+  # Select predictors (all other variables except the target variable)
+  X = temp_df.drop(columns=["NetProfitMargin_ratio"])
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
   
-      # Select predictors (all other variables except the target variable)
-      X = temp_df.drop(columns=["NetProfitMargin_ratio"])
-      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
-      return X_train, X_test, y_train, y_test
+  # Decision Tree example
+  dt_param_grid = {'max_depth': [3, 5, 10], 'min_samples_leaf': [1, 2, 4]}
+  dt = DecisionTreeRegressor(random_state=42)
+  dt_grid_search = GridSearchCV(estimator=dt, param_grid=dt_param_grid, cv=5)
+  dt_grid_search.fit(X_train, y_train)
+  best_dt = dt_grid_search.best_estimator_
   
-  # Function to train and optimize model
-  def train_and_optimize_model(X_train, y_train, model, param_grid, cv=5):
-      """
-      Train and optimize the model using GridSearchCV.
+  mlflow.start_run()
   
-      Parameters
-      ----------
-      X_train : array-like
-          Training data features.
-      y_train : array-like
-          Training data target.
-      model : estimator object
-          The type of classifier (e.g., LogisticRegression(), DecisionTreeClassifier()).
-      param_grid : dict
-          Parameter grid to search over for GridSearchCV.
-      cv : int, optional
-          Number of folds in cross-validation.
+  mlflow.log_params(dt_grid_search.best_params_)
+  mlflow.sklearn.log_model(best_dt, "best_dt")
+  mlflow.sklearn.save_model(best_dt, "best_dt_model")
+  y_pred_dt = best_dt.predict(X_test)
+  mse_dt = metrics.mean_squared_error(y_test, y_pred_dt)
+  r2_dt = metrics.r2_score(y_test, y_pred_dt)
   
-      Returns
-      -------
-      grid_search : GridSearchCV object
-          Fitted GridSearchCV object after finding the best model.
-      """
-      grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=cv)
-      grid_search.fit(X_train, y_train)
-      return grid_search
+  mlflow.log_metric("MSE", mse_dt)
+  mlflow.log_metric("R2", r2_dt)
   
-  # Function to evaluate model
-  def evaluate_model(model, X_test, y_test):
-      """
-      Evaluate the model and log metrics using MLflow.
-  
-      Parameters
-      ----------
-      model : estimator object
-          Trained model.
-      X_test : array-like
-          Test data features.
-      y_test : array-like
-          Test data target.
-      """
-      y_pred = model.predict(X_test)
-      mse = metrics.mean_squared_error(y_test, y_pred)
-      r2 = metrics.r2_score(y_test, y_pred)
-      return y_pred, mse, r2
-  
-  def main():
-      st.title("Net Profit Margin Prediction")
-  
-      # Load dataset and preprocess
-      X_train, X_test, y_train, y_test = process_data(None, None)
-  
-      # Decision Tree Regression
-      st.subheader("Decision Tree Regression")
-      dt_param_grid = {'max_depth': [3, 5, 10], 'min_samples_leaf': [1, 2, 4]}
-      dt = DecisionTreeRegressor(random_state=42)
-      dt_grid_search = train_and_optimize_model(X_train, y_train, dt, dt_param_grid)
-      best_dt = dt_grid_search.best_estimator_
-      y_pred_dt, mse_dt, r2_dt = evaluate_model(best_dt, X_test, y_test)
-  
-      # Display metrics
-      st.write("Mean Squared Error (Decision Tree):", mse_dt)
-      st.write("R^2 Score (Decision Tree):", r2_dt)
-  
-  if __name__ == "__main__":
-      main()
+  # Display results in Streamlit
+  st.title("Net Profit Margin Prediction")
+  st.subheader("Decision Tree Regression")
+  st.write("Mean Squared Error (Decision Tree):", mse_dt)
+  st.write("R^2 Score (Decision Tree):", r2_dt)
 
   
   
