@@ -9,6 +9,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.tree import DecisionTreeRegressor
 from sklearn.preprocessing import LabelEncoder
 import graphviz
 
