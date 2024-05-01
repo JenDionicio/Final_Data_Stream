@@ -270,13 +270,7 @@ elif app_mode == "Prediction":
 
 
   # MLFLOW:
-  import streamlit as st
-  import mlflow
-  from sklearn.model_selection import train_test_split, GridSearchCV
-  from sklearn.tree import DecisionTreeRegressor
-  from sklearn import metrics
-  import pandas as pd
-  
+ 
   # Function to process data
   def process_data(X, y, test_size=0.3, random_state=42):
       """
