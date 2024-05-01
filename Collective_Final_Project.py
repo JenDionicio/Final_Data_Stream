@@ -234,39 +234,150 @@ elif app_mode == "Prediction":
   st.write(f"R-squared: {r2}")
 
   
-    # Assuming df is your DataFrame
+  # 
     
-  cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']
-  temp_df = df[cols].copy()
-  label_encoder = LabelEncoder()
-  for name in cols:
-      temp_df[name] = label_encoder.fit_transform(temp_df[name])
+  # cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']
+  # temp_df = df[cols].copy()
+  # label_encoder = LabelEncoder()
+  # for name in cols:
+  #     temp_df[name] = label_encoder.fit_transform(temp_df[name])
   
-  X = temp_df.drop(["NetProfitMargin_ratio"], axis=1)
-  y = temp_df.NetProfitMargin_ratio  # Target variable
+  # X = temp_df.drop(["NetProfitMargin_ratio"], axis=1)
+  # y = temp_df.NetProfitMargin_ratio  # Target variable
   
-  # Split dataset into training set and test set
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)  # 70% training and 30% test
+  # # Split dataset into training set and test set
+  # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)  # 70% training and 30% test
   
-  # Create Decision Tree classifer object
-  clf = DecisionTreeClassifier()
-  # clf = DecisionTreeClassifier(max_depth=3)
+  # # Create Decision Tree classifer object
+  # clf = DecisionTreeClassifier()
+  # # clf = DecisionTreeClassifier(max_depth=3)
   
-  # Train Decision Tree Classifier
-  clf = clf.fit(X_train, y_train)
+  # # Train Decision Tree Classifier
+  # clf = clf.fit(X_train, y_train)
   
-  # Predict the response for test dataset
-  y_pred = clf.predict(X_test)
+  # # Predict the response for test dataset
+  # y_pred = clf.predict(X_test)
   
-  # Model Accuracy, how often is the classifier correct?
-  accuracy = metrics.accuracy_score(y_test, y_pred)
-  st.write("Accuracy:", accuracy)
+  # # Model Accuracy, how often is the classifier correct?
+  # accuracy = metrics.accuracy_score(y_test, y_pred)
+  # st.write("Accuracy:", accuracy)
   
-  # Plotting decision tree
-  st.subheader("Decision Tree Visualization")
-  plt.figure(figsize=(15, 10))
-  plot_tree(clf, feature_names=X.columns, class_names=clf.classes_, filled=True, rounded=True)
-  st.pyplot()
+  # # Plotting decision tree
+  # st.subheader("Decision Tree Visualization")
+  # plt.figure(figsize=(15, 10))
+  # plot_tree(clf, feature_names=X.columns, class_names=clf.classes_, filled=True, rounded=True)
+  # st.pyplot()
+
+
+  # MLFLOW:
+  import streamlit as st
+  import mlflow
+  from sklearn.model_selection import train_test_split, GridSearchCV
+  from sklearn.tree import DecisionTreeRegressor
+  from sklearn import metrics
+  import pandas as pd
+  
+  # Function to process data
+  def process_data(X, y, test_size=0.3, random_state=42):
+      """
+      Split the dataset into training and testing sets.
+  
+      Parameters
+      ----------
+      X : array-like
+          Feature dataset.
+      y : array-like
+          Target values.
+      test_size : float, optional
+          Proportion of the dataset to include in the test split.
+      random_state : int, optional
+          Controls the shuffling applied to the data before applying the split.
+  
+      Returns
+      -------
+      X_train, X_test, y_train, y_test : tuple of arrays
+          Training and testing sets.
+      """
+      # Process your data here
+      # Load your dataset
+      df = pd.read_csv("transactions_dataset.csv")
+      cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
+      temp_df = df[cols]
+  
+      # Select the target variable for prediction
+      y = temp_df["NetProfitMargin_ratio"]
+  
+      # Select predictors (all other variables except the target variable)
+      X = temp_df.drop(columns=["NetProfitMargin_ratio"])
+      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+      return X_train, X_test, y_train, y_test
+  
+  # Function to train and optimize model
+  def train_and_optimize_model(X_train, y_train, model, param_grid, cv=5):
+      """
+      Train and optimize the model using GridSearchCV.
+  
+      Parameters
+      ----------
+      X_train : array-like
+          Training data features.
+      y_train : array-like
+          Training data target.
+      model : estimator object
+          The type of classifier (e.g., LogisticRegression(), DecisionTreeClassifier()).
+      param_grid : dict
+          Parameter grid to search over for GridSearchCV.
+      cv : int, optional
+          Number of folds in cross-validation.
+  
+      Returns
+      -------
+      grid_search : GridSearchCV object
+          Fitted GridSearchCV object after finding the best model.
+      """
+      grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=cv)
+      grid_search.fit(X_train, y_train)
+      return grid_search
+  
+  # Function to evaluate model
+  def evaluate_model(model, X_test, y_test):
+      """
+      Evaluate the model and log metrics using MLflow.
+  
+      Parameters
+      ----------
+      model : estimator object
+          Trained model.
+      X_test : array-like
+          Test data features.
+      y_test : array-like
+          Test data target.
+      """
+      y_pred = model.predict(X_test)
+      mse = metrics.mean_squared_error(y_test, y_pred)
+      r2 = metrics.r2_score(y_test, y_pred)
+      return y_pred, mse, r2
+  
+  def main():
+      st.title("Net Profit Margin Prediction")
+  
+      # Load dataset and preprocess
+      X_train, X_test, y_train, y_test = process_data(None, None)
+  
+      # Decision Tree Regression
+      st.subheader("Decision Tree Regression")
+      dt_param_grid = {'max_depth': [3, 5, 10], 'min_samples_leaf': [1, 2, 4]}
+      dt = DecisionTreeRegressor(random_state=42)
+      dt_grid_search = train_and_optimize_model(X_train, y_train, dt, dt_param_grid)
+      best_dt = dt_grid_search.best_estimator_
+      y_pred_dt, mse_dt, r2_dt = evaluate_model(best_dt, X_test, y_test)
+  
+      # Display metrics
+      st.write("Mean Squared Error (Decision Tree):", mse_dt)
+      st.write("R^2 Score (Decision Tree):", r2_dt)
+  
+  if __name__ == "__main__":
+      main()
 
   
   
