@@ -270,9 +270,6 @@ elif app_mode == "Prediction":
 
 
   # MLFLOW:
- 
-  if os.path.exists("best_dt_model"):
-      shutil.rmtree("best_dt_model")
   
   # Load dataset and preprocess
   df = pd.read_csv("transactions_dataset.csv")
