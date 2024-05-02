@@ -198,13 +198,6 @@ elif app_mode == "Visualization":
 # - - - - - - - - - - - PREDICTION - - - - - - - - - - -
 elif app_mode == "Prediction":
   st.title("Prediction")
-  from sklearn.model_selection import train_test_split
-  from sklearn.linear_model import LinearRegression
-  from sklearn.metrics import mean_squared_error, r2_score
-  import pandas as pd
-  from sklearn.preprocessing import LabelEncoder
-  import seaborn as sns
-  import matplotlib.pyplot as plt
   
   # Assuming df is your DataFrame containing all variables
   # df = pd.read_csv("transactions_dataset.csv")
@@ -253,4 +246,38 @@ elif app_mode == "Prediction":
   st.pyplot(fig)
 
 # - - - - - - - - - - - - - - MLFLOW
- 
+  # Define columns
+  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio',
+          'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio', 'Composite_Score', 'ESG_PS_interaction',
+          'ESG_PB_interaction', 'PS_PB_interaction']
+  
+  # Filter dataframe based on selected columns
+  temp_df = tech_df[cols]
+  
+  # Split features and target variable
+  X = temp_df.drop(["NetProfitMargin_ratio"], axis=1)
+  y = temp_df["NetProfitMargin_ratio"]
+  
+  # Split dataset into training set and test set
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+  
+  # Create Decision Tree Regressor object
+  clf = DecisionTreeRegressor(max_depth=3)
+  
+  # Train Decision Tree Regressor
+  clf.fit(X_train, y_train)
+  
+  # Predict the response for test dataset
+  y_pred = clf.predict(X_test)
+  
+  # Calculate metrics
+  mse = metrics.mean_squared_error(y_test, y_pred)
+  r2_score = metrics.r2_score(y_test, y_pred)
+  
+  # Display MSE and R2 score
+  st.write(f"MSE: {mse}")
+  st.write(f"R2 Score: {r2_score}")
+  
+  # Plot decision tree
+  st.graphviz_chart(export_graphviz(clf, out_file=None, feature_names=X.columns, filled=True, rounded=True))
+   
