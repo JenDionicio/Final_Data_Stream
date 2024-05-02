@@ -15,6 +15,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.preprocessing import LabelEncoder
 import graphviz
 import missingno as mno
+from shapash.explainer.smart_explainer import SmartExplainer
 
 
 st.sidebar.header("Dashboard")
@@ -287,3 +288,23 @@ elif app_mode == "Prediction":
   st.subheader("Decision Tree Regression")
   st.write("Mean Squared Error (Decision Tree):", mse_dt)
   st.write("R^2 Score (Decision Tree):", r2_dt)
+
+  # - - - - - - - -  FEATURE IMPORTANCE
+  
+  xpl = SmartExplainer(clf)
+
+  # Convert y_pred to a pandas Series
+  y_pred = pd.Series(y_pred)
+  
+  # Reset index of X_test
+  X_test = X_test.reset_index(drop=True)
+  
+  # Compile SmartExplainer
+  xpl.compile(x=X_test, y_pred=y_pred)
+  
+  # Plot features' importance
+  fig = xpl.plot.features_importance()
+  
+  # Display the plot within Streamlit
+  st.pyplot(fig)
+  
