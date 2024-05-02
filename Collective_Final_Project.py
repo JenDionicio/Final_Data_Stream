@@ -145,7 +145,7 @@ elif app_mode == "Visualization":
   
   
   # Calculate the composite score
-  tech_df['Composite_Score'] = sum(df[col] * weights[col] for col in weights)
+  tech_df['Composite_Score'] = sum(tech_df[col] * weights[col] for col in weights)
 
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio','Composite_Score',  'ESG_PS_interaction',  'ESG_PB_interaction',  'PS_PB_interaction' ] 
 
