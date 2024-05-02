@@ -130,39 +130,33 @@ elif app_mode == "Visualization":
   tech_df = tech_df.sample(n=10000)
 
  # Define image paths and messages
-  image_paths = ['bigger_pairplot.png', 'bigger_pairplot.png', 'smaller_pairplot.png']
+  image_paths = ['bigger_pairplot.png', 'Annoted_bigger_sns.png', 'smaller_pairplot.png']
   messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
   
   # Initialize index for the selected image and message
   selected_index = 0
   
   # Define a boolean variable to track whether the button has been clicked
-  button_clicked = False
-  
-  # Display the initial message and image
   st.write(messages[selected_index])
   st.image(image_paths[selected_index], use_column_width=True)
   
   # Add a button to change the image and message
-  if not button_clicked:  # Show the button only if it hasn't been clicked yet
-      if st.button("Next Image?"):
-          # Increment the index to get the next image and message
-          selected_index = (selected_index + 1) % len(image_paths)
-          # Clear the previous image and message
-          st.write("")
-          # Display the next message
-          st.write(messages[selected_index])
-          # Display the next image
-          st.image(image_paths[selected_index], use_column_width=True)
-          # Set button_clicked to True to indicate that the button has been clicked
-          button_clicked = True
-
-  # Heat Map
-  tab2.subheader("Heat Map")
-  # heat map code
-  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
-  corrMatrix = tech_df[cols].corr()
-  tab2.title('Heatmap Correlation')
+  if st.button("Next Image?"):
+      # Increment the index to get the next image and message
+      selected_index = (selected_index + 1) % len(image_paths)
+      # Clear the previous image and message
+      st.write("")
+      # Display the next message
+      st.write(messages[selected_index])
+      # Display the next image
+      st.image(image_paths[selected_index], use_column_width=True)
+  
+    # Heat Map
+    tab2.subheader("Heat Map")
+    # heat map code
+    cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
+    corrMatrix = tech_df[cols].corr()
+    tab2.title('Heatmap Correlation')
 
   # Display the heatmap using seaborn
   fig2 = sns.heatmap(corrMatrix, annot=True, cmap='coolwarm', fmt='.2f')
