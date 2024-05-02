@@ -175,22 +175,10 @@ elif app_mode == "Prediction":
   sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
   st.pyplot()
   
-  # Metrics
-  mse = mean_squared_error(results_df['Actual'], results_df['Predicted'])
-  r2 = r2_score(results_df['Actual'], results_df['Predicted'])
-  
-  st.write("Prediction of NetProfitMargin_ratio against all other variables:")
-  st.write(f"Mean Squared Error: {mse}")
-  st.write(f"R-squared: {r2}")
-
-
   # MLFLOW:
-  st.title("MLflow Integration with Streamlit")
   
   # Load dataset and preprocess
-  df = pd.read_csv("transactions_dataset.csv")
-  cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio',
-          'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']
+  cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
   temp_df = df[cols]
   
   # Select the target variable for prediction
@@ -207,17 +195,20 @@ elif app_mode == "Prediction":
   dt_grid_search.fit(X_train, y_train)
   best_dt = dt_grid_search.best_estimator_
   
-  # Log parameters and model with MLflow
-  with mlflow.start_run():
-      mlflow.log_params(dt_grid_search.best_params_)
-      mlflow.sklearn.log_model(best_dt, "best_dt")
-      mlflow.sklearn.save_model(best_dt, "best_dt_model")
-      y_pred = best_dt.predict(X_test)
-      mse = metrics.mean_squared_error(y_test, y_pred)
-      r2 = metrics.r2_score(y_test, y_pred)
-      st.write("MSE:", mse)
-      st.write("R2:", r2)
-
+  mlflow.start_run()
   
+  mlflow.log_params(dt_grid_search.best_params_)
+  mlflow.sklearn.log_model(best_dt, "best_dt")
+  mlflow.sklearn.save_model(best_dt, "best_dt_model")
+  y_pred_dt = best_dt.predict(X_test)
+  mse_dt = metrics.mean_squared_error(y_test, y_pred_dt)
+  r2_dt = metrics.r2_score(y_test, y_pred_dt)
   
+  mlflow.log_metric("MSE", mse_dt)
+  mlflow.log_metric("R2", r2_dt)
   
+  # Display results in Streamlit
+  st.title("Net Profit Margin Prediction")
+  st.subheader("Decision Tree Regression")
+  st.write("Mean Squared Error (Decision Tree):", mse_dt)
+  st.write("R^2 Score (Decision Tree):", r2_dt)
