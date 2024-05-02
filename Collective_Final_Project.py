@@ -129,6 +129,20 @@ elif app_mode == "Visualization":
 
   # DF defenition
   tech_df = tech_df.sample(n=10000)
+
+  image_paths = ['bigger_pairplot.png', 'bigger_pairplot.png']
+
+  # Display the first image
+  selected_image_index = 0
+  st.image(image_paths[selected_image_index], use_column_width=True)
+  
+  # Add a button to change the image
+  if st.button("Next Image?"):
+      selected_image_index = (selected_image_index + 1) % len(image_paths)
+      # Clear the previous image
+      st.write("")
+      # Display the next image
+      st.image(image_paths[selected_image_index], use_column_width=True)
   
   #Bigger Pair Plot -- too much time to generate
   tab1.subheader("All Vaiable Pair Plot")
