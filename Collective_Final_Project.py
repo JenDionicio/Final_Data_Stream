@@ -141,7 +141,7 @@ elif app_mode == "Visualization":
   st.image(image_paths[selected_index], use_column_width=True)
   
   # Add a button to change the image and message
-  if st.button("Next Image?"):
+  if st.button(f"Next Image? {selected_index+1}"):
       # Increment the index to get the next image and message
       selected_index = (selected_index + 1) % len(image_paths)
       # Clear the previous image and message
@@ -152,7 +152,8 @@ elif app_mode == "Visualization":
       st.image(image_paths[selected_index], use_column_width=True)
   
   # Display the button at the bottom, below the next displayed image
-  st.button("Next Image?")
+  if st.button("Next Image? {selected_index+1}"):
+    pass
 
   # Heat Map
   tab2.subheader("Heat Map")
