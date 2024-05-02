@@ -36,15 +36,14 @@ if app_mode == "Introduction":
   st.markdown("## Environmental - Social - Governance")
   st.markdown("##### Wow ESG rankings truly effect company investment & returns?")
   
-  show_objective = st.checkbox("Show Objective")
-  if show_objective:
+  option = st.selectbox("Select Section", ["Objective", "Approach"])
+  
+  if option == "Objective":
       st.markdown("""
       ##### Objective:
       - Our goal is to explore a company's profit margin ratio relative to ESG Rankings to create a positive feedback loop.
       """)
-  
-  show_approach = st.checkbox("Show Approach")
-  if show_approach:
+  elif option == "Approach":
       st.markdown("""
       ##### Approach:
       1. Data Exploration
