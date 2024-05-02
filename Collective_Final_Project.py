@@ -35,7 +35,7 @@ if app_mode == "Introduction":
 
 
   st.markdown("## Environmental - Social - Governance")
-  st.markdown("##### Wow ESG rankings truly effect company investment & returns?")
+  st.markdown("##### Does ESG rankings truly effect company investment & returns?")
   
   st.markdown("""
   ##### Objective:
@@ -108,16 +108,17 @@ if app_mode == "Introduction":
   st.markdown("### Completeness")
   st.markdown(" The ratio of non-missing values to total records in dataset and how comprehensive the data is.")
 
-  st.write("Total data length:", len(df))
-  nonmissing = (df.notnull().sum().round(2))
-  completeness= round(sum(nonmissing)/len(df),2)
+  # POSSIBLY DELETE
+  # st.write("Total data length:", len(df))
+  # nonmissing = (df.notnull().sum().round(2))
+  # completeness= round(sum(nonmissing)/len(df),2)
+  # st.write("Completeness ratio:",completeness)
+  # st.write(nonmissing)
+  # if completeness >= 0.80:
+  #   st.success("We have completeness ratio greater than 0.85, which is good. It shows that the vast majority of the data is available for us to use and analyze. ")
+  # else:
+  #   st.success("Poor data quality due to low completeness ratio( less than 0.85).")
 
-  st.write("Completeness ratio:",completeness)
-  st.write(nonmissing)
-  if completeness >= 0.80:
-    st.success("We have completeness ratio greater than 0.85, which is good. It shows that the vast majority of the data is available for us to use and analyze. ")
-  else:
-    st.success("Poor data quality due to low completeness ratio( less than 0.85).")
 
 elif app_mode == "Visualization":
   st.title("Visualization")
