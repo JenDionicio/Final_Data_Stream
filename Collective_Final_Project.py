@@ -32,10 +32,11 @@ if app_mode == "Introduction":
 
   #st.image("veh.jpeg", use_column_width=True)
 
-  st.markdown("#### Wondering how ESG rankings truly effect company investment & returns?")
-  st.markdown("Our goal is explore investments relative to ESG Rankings & finding/creating a positive feedback loop ")
-  st.markdown("##### Objectives")
-  st.markdown("- Using other variables that contribute to investment over the years")
+  st.markdown("##### Wondering how ESG rankings truly effect company investment & returns?")
+  st.markdown("Our goal is explore a companies profit margin ratio relative to ESG Rankings & finding/creating a positive feedback loop ")
+  st.markdown("##### Objectives:")
+  st.markdown("\t - Do a comprehensive analysis as to which variables within the Technology industries allow for a company to have a more income and thus better investments ")
+  st.markdown("- Use other variables that contribute to investment over the years")
   st.markdown("- Points that can be made: ESG growth over the years; correlation w Investment & social pressures")
   st.markdown("- Does ESG ranking positivley or negatively effect investments? ")
 
