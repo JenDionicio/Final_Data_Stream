@@ -349,4 +349,19 @@ elif app_mode == "Prediction":
   
   # Display DataFrame as a table
   st.table(df)
+
+  # - - - - - - - - - - - - - 
+  from shapash.explainer.smart_explainer import SmartExplainer
+  
+  # Assuming `clf`, `X_test`, and `y_pred` are already defined
+  xpl = SmartExplainer(clf)
+  y_pred = pd.Series(y_pred)
+  X_test = X_test.reset_index(drop=True)
+  xpl.compile(x=X_test, y_pred=y_pred)
+  fig = xpl.plot.features_importance()
+  
+  # Display the plot
+  st.pyplot(fig)
+
+
    
