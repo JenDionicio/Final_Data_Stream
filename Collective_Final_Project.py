@@ -265,7 +265,7 @@ elif app_mode == "Prediction":
   # Display the plot within the Streamlit app
   st.pyplot(fig)
 
-# - - - - - - - - - - - - - - MLFLOW
+# - - - - - - - - - - - - - - DECISION TREE REGRESSOR
   # Define columns
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio',
           'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']
@@ -300,5 +300,35 @@ elif app_mode == "Prediction":
   # Plot decision tree
   st.graphviz_chart(export_graphviz(clf, out_file=None, feature_names=X.columns, filled=True, rounded=True))
 
-  # - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - -
+  # Create a DataFrame from the given data
+  data = {
+      'Model': ['knn', 'rf', 'et', 'lightgbm', 'xgboost', 'dt', 'gbr', 'ada', 'br', 'ridge',
+                'lr', 'huber', 'en', 'lasso', 'llar', 'par', 'omp', 'dummy', 'lar'],
+      'Algorithm': ['K Neighbors Regressor', 'Random Forest Regressor', 'Extra Trees Regressor',
+                    'Light Gradient Boosting Machine', 'Extreme Gradient Boosting', 'Decision Tree Regressor',
+                    'Gradient Boosting Regressor', 'AdaBoost Regressor', 'Bayesian Ridge', 'Ridge Regression',
+                    'Linear Regression', 'Huber Regressor', 'Elastic Net', 'Lasso Regression',
+                    'Lasso Least Angle Regression', 'Passive Aggressive Regressor', 'Orthogonal Matching Pursuit',
+                    'Dummy Regressor', 'Least Angle Regression'],
+      'MAE': [0.0000, 0.0000, 0.0000, 0.0055, 0.0003, 0.0000, 0.2143, 1.2493, 2.2450, 2.2451,
+              2.2450, 2.1995, 2.3610, 2.3733, 2.3733, 3.0690, 6.3290, 8.3423, 8.7474],
+      'MSE': [0.0000, 0.0000, 0.0000, 0.0002, 0.0000, 0.0000, 0.0777, 2.3647, 7.3785, 7.3784,
+              7.3785, 8.0557, 9.1970, 9.4301, 9.4301, 16.9831, 68.2626, 108.6826, 147.4126],
+      'RMSE': [0.0000, 0.0000, 0.0000, 0.0125, 0.0007, 0.0000, 0.2785, 1.5376, 2.7163, 2.7163,
+               2.7163, 2.8372, 3.0326, 3.0708, 3.0708, 4.0527, 8.2619, 10.4250, 10.9345],
+      'R2': [1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 0.9993, 0.9782, 0.9319, 0.9319,
+             0.9319, 0.9257, 0.9152, 0.9130, 0.9130, 0.8435, 0.3705, -0.0023, -0.3576],
+      'RMSLE': [0.0000, 0.0000, 0.0000, 0.0006, 0.0000, 0.0000, 0.0254, 0.1432, 0.2347, 0.2347,
+                0.2347, 0.2184, 0.2081, 0.2166, 0.2165, 0.2905, 0.8095, 1.0236, 0.8220],
+      'MAPE': [0.0000, 0.0000, 0.0000, 0.0006, 0.0000, 0.0000, 0.0309, 0.3354, 0.4365, 0.4367,
+               0.4364, 0.4038, 0.4272, 0.4359, 0.4358, 0.6183, 3.0713, 6.3344, 2.9445],
+      'TT (Sec)': [0.3600, 10.7310, 4.6500, 2.2730, 0.5930, 0.2650, 6.7620, 3.1140, 0.1550, 0.1480,
+                    0.8520, 1.1060, 0.1560, 0.1560, 0.2480, 0.2530, 0.1470, 0.1440, 0.2080]
+  }
+  
+  df = pd.DataFrame(data)
+  
+  # Display DataFrame as a table
+  st.table(df)
    
