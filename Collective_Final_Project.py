@@ -165,9 +165,6 @@ elif app_mode == "Prediction":
   # Make predictions
   y_pred = model.predict(X_test)
   results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
-
-
-  
   
   # Calculate accuracy metrics
   st.subheader('Actual vs. Predicted for Net Profit Margin ratio')
@@ -187,12 +184,9 @@ elif app_mode == "Prediction":
   st.write(f"R-squared: {r2}")
 
 
-
-
   # MLFLOW:
-  
   # Load dataset and preprocess
-  df = pd.read_csv("transactions_dataset.csv")
+  # df = pd.read_csv("transactions_dataset.csv")
   cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
   temp_df = df[cols]
   
