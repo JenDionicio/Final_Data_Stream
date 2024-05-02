@@ -175,26 +175,10 @@ elif app_mode == "Prediction":
   sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
   st.pyplot()
   
-  # MLFLOW:
-    
-  import streamlit as st
-  import mlflow
-  from sklearn.datasets import load_iris
-  from sklearn.model_selection import train_test_split, GridSearchCV
-  from sklearn.linear_model import LogisticRegression
-  from sklearn.tree import DecisionTreeRegressor
-  from sklearn import metrics
-  import joblib
-  import os
-  import shutil
-  import pandas as pd
-  
+  # MLFLOW:  
   # Remove existing directory and its contents
-  if os.path.exists("best_dt_model"):
-      shutil.rmtree("best_dt_model")
   
   # Load dataset and preprocess
-  df = pd.read_csv("transactions_dataset.csv")
   cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
   temp_df = df[cols]
   
@@ -211,7 +195,8 @@ elif app_mode == "Prediction":
   dt_grid_search = GridSearchCV(estimator=dt, param_grid=dt_param_grid, cv=5)
   dt_grid_search.fit(X_train, y_train)
   best_dt = dt_grid_search.best_estimator_
-  
+  tracking_uri = mlflow.get_tracking_uri()
+  mlflow.set_tracking_uri(tracking_uri)
   mlflow.start_run()
   
   mlflow.log_params(dt_grid_search.best_params_)
