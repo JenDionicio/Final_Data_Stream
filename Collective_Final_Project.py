@@ -307,4 +307,3 @@ elif app_mode == "Prediction":
   
   # Display the plot within Streamlit
   st.pyplot(fig)
-  
