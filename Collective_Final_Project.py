@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import LogisticRegression
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 from sklearn import metrics
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.tree import DecisionTreeClassifier, plot_tree
@@ -361,11 +362,15 @@ elif app_mode == "Prediction":
   xpl.compile(x=X_test, y_pred=y_pred)
   fig = xpl.plot.features_importance()
   
-  # Convert Matplotlib figure to PIL image
+  # Render the figure into a PIL image
   buf = io.BytesIO()
-  fig.savefig(buf, format='png')
+  canvas = FigureCanvasAgg(fig)
+  canvas.print_png(buf)
   buf.seek(0)
   img = Image.open(buf)
+  
+  # Display the PIL image using Streamlit
+  st.image(img)
 
 
    
