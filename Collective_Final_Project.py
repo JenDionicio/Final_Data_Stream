@@ -129,21 +129,23 @@ elif app_mode == "Visualization":
   # DF defenition
   tech_df = tech_df.sample(n=10000)
 
-  image_paths = ['bigger_pairplot.png', 'bigger_pairplot.png','smaller_pairplot.png' ]
+  image_paths = ['bigger_pairplot.png', 'bigger_pairplot.png', 'smaller_pairplot.png']
   messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
-  # Display the first image
-  selected_index = 0
-
-  st.write(messages[current_message_index])
-  st.image("bigger_pairplot.png", use_column_width=True)
   
+  # Initialize index for the selected image and message
+  selected_index = 0
+  
+  # Display the initial message and image
+  st.write(messages[selected_index])
   st.image(image_paths[selected_index], use_column_width=True)
   
-  # Add a button to change the image
+  # Add a button to change the image and message
   if st.button("Next Image?"):
-      selected_image_index = (selected_image_index + 1) % len(image_paths)
-      # Clear the previous image
+      # Increment the index to get the next image and message
+      selected_index = (selected_index + 1) % len(image_paths)
+      # Clear the previous image and message
       st.write("")
+      # Display the next message
       st.write(messages[selected_index])
       # Display the next image
       st.image(image_paths[selected_index], use_column_width=True)
