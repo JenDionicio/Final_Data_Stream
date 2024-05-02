@@ -84,9 +84,6 @@ if app_mode == "Introduction":
 elif app_mode == "Visualization":
   st.title("Visualization")
   
-
-
-
   # DATA VISUALISATION
   tab1, tab2, tab3, tab4 = st.tabs(["SNS Plot", "Correlation Map", "Line Chart", "Pie Plot"])
 
@@ -101,82 +98,35 @@ elif app_mode == "Visualization":
 
   # Heat Map
   tab2.subheader("Heat Map")
-
   # heat map code
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
   corrMatrix = tech_df[cols].corr()
-  fig = sns.heatmap(corrMatrix, annot=True, cmap='coolwarm', fmt='.2f')
+  tab2.title('Heatmap Correlation')
+
+  # Display the heatmap using seaborn
+  fig2 = sns.heatmap(corrMatrix, annot=True, cmap='coolwarm', fmt='.2f')
+
+  # Display the plot within the Streamlit app
+  tab2.pyplot()
   
-  tab2.write("Heatmap Correlation")
-  tab2.pyplot(fig)
+  # Line PLot
+  tab3.subheader("Line....")
+  # Grouping based on condition
+  high_rank = tech_df.groupby(tech_df['ESG_ranking'] > tech_df['ESG_ranking'].mean())
 
+  # Get the group with ESG_ranking greater than the mean
+  high_rank_group = high_rank.get_group(True)
 
-  # highRank = tech_df.groupby(tech_df['ESG_ranking']> tech_df['ESG_ranking'].mean() )
-  # highRank.get_group(1).describe()
-  # highRank.get_group(0).describe()
+  # Display summary statistics for the group
+  tab3.subheader("Summary statistics for high ESG ranking group:")
+  tab3.write(high_rank_group.describe())
 
+  # Get the group with ESG_ranking less than or equal to the mean
+  low_rank_group = high_rank.get_group(False)
 
-  # # Line Chart
-  # average_volatility = (highRank.get_group(1)['Volatility_Buy'] + highRank.get_group(1)['Volatility_sell']) / 2
-
-  # # Convert the group to a DataFrame to ensure modifications are applied correctly
-  # group_df = highRank.get_group(1).copy()
-  
-  # # Add the calculated average volatility as a new column
-  # group_df['Average_Volatility'] = average_volatility
-  
-  # # Update the original DataFrame with the modified group
-  # highRank.groups[1] = group_df
-
-  # sns.lmplot(x='Average_Volatility', y='EPS_ratio', data=highRank.get_group(0))
-
-
-                  
-
-#   #Bar Graph
-#   # User input for x-variable
-#   columns = ['Region_Code', 'Gender', 'Vehicle_Age']
-#   x_variable = tab2.selectbox("Select x-variable:", columns)
-#   tab2.subheader(f"{x_variable} vs Price (INR)")
-#   #data_by_variable = df.groupby(x_variable)['Annual_Premium'].mean()
-#   #tab2.bar_chart(data_by_variable)
-
-#   #Line Graph
-#   tab3.subheader("Age vs Price")
-#   #age_by_price = df.groupby('Age')['Annual_Premium'].mean()
-#   #tab3.line_chart(age_by_price)
-
-#   '''
-#   tab4.subheader("Pie plot")
-#   tab4.subheader("Response distribution by Vehicle Damage")
-#   response_counts = df.groupby(['Vehicle_Damage', 'Response']).size().unstack(fill_value=0)
-#   fig, ax = plt.subplots()
-#   colors = ['#ff9999','#66b3ff']
-#   damage_counts = response_counts.loc[1]
-#   percentages = (damage_counts.values / damage_counts.sum()) * 100
-#   labels = ['Yes', 'No']
-#   ax.pie(percentages, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-#   ax.axis('equal')
-#   tab4.pyplot(fig)
-
-#   #Pie Plot2
-#   tab4.subheader("Response Distribution by Not Previously Insured")
-#   response_counts = df.groupby(['Previously_Insured', 'Response']).size().unstack(fill_value=0)
-#   fig, ax = plt.subplots()
-#   colors = ['#ff9999','#66b3ff']
-#   prev_insurance_counts = response_counts.loc[0]
-#   percentages = (prev_insurance_counts.values / prev_insurance_counts.sum()) * 100
-#   labels = ['Yes', 'No']
-#   ax.pie(percentages, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-#   ax.axis('equal')
-#   tab4.pyplot(fig)
-
-
-#   tab1, tab2, tab3, tab4 = st.tabs(["SNS Plot", "Bar Chart", "Line Chart", "Pie Plot"])
-
-#   fig = sns.pairplot(df)
-#   tab1.pyplot(fig)
-#   '''
+  # Display summary statistics for the group
+  tab3.subheader("Summary statistics for low ESG ranking group:")
+  tab3.write(low_rank_group.describe())
 
 elif app_mode == "Prediction":
   st.title("Prediction")
@@ -215,9 +165,6 @@ elif app_mode == "Prediction":
   # Make predictions
   y_pred = model.predict(X_test)
   results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
-
-
-  
   
   # Calculate accuracy metrics
   st.subheader('Actual vs. Predicted for Net Profit Margin ratio')
@@ -228,21 +175,10 @@ elif app_mode == "Prediction":
   sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
   st.pyplot()
   
-  # Metrics
-  mse = mean_squared_error(results_df['Actual'], results_df['Predicted'])
-  r2 = r2_score(results_df['Actual'], results_df['Predicted'])
-  
-  st.write("Prediction of NetProfitMargin_ratio against all other variables:")
-  st.write(f"Mean Squared Error: {mse}")
-  st.write(f"R-squared: {r2}")
-
-
-
-
-  # MLFLOW:
+  # MLFLOW:  
+  # Remove existing directory and its contents
   
   # Load dataset and preprocess
-  df = pd.read_csv("transactions_dataset.csv")
   cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
   temp_df = df[cols]
   
@@ -259,21 +195,23 @@ elif app_mode == "Prediction":
   dt_grid_search = GridSearchCV(estimator=dt, param_grid=dt_param_grid, cv=5)
   dt_grid_search.fit(X_train, y_train)
   best_dt = dt_grid_search.best_estimator_
+  with mlflow.start_run():
   
-  mlflow.start_run()
-  
-  mlflow.log_params(dt_grid_search.best_params_)
-  mlflow.sklearn.log_model(best_dt, "best_dt")
-  mlflow.sklearn.save_model(best_dt, "best_dt_model")
-  y_pred_dt = best_dt.predict(X_test)
-  mse_dt = metrics.mean_squared_error(y_test, y_pred_dt)
-  r2_dt = metrics.r2_score(y_test, y_pred_dt)
-  
-  mlflow.log_metric("MSE", mse_dt)
-  mlflow.log_metric("R2", r2_dt)
-  
+    mlflow.log_params(dt_grid_search.best_params_)
+    mlflow.sklearn.log_model(best_dt, "best_dt")
+    mlflow.sklearn.save_model(best_dt, "best_dt_model")
+    y_pred_dt = best_dt.predict(X_test)
+    mse_dt = metrics.mean_squared_error(y_test, y_pred_dt)
+    r2_dt = metrics.r2_score(y_test, y_pred_dt)
+    
+    mlflow.log_metric("MSE", mse_dt)
+    mlflow.log_metric("R2", r2_dt)
+    
   # Display results in Streamlit
   st.title("Net Profit Margin Prediction")
   st.subheader("Decision Tree Regression")
   st.write("Mean Squared Error (Decision Tree):", mse_dt)
   st.write("R^2 Score (Decision Tree):", r2_dt)
+    
+    
+    
