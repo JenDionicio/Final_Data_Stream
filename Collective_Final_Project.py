@@ -33,7 +33,7 @@ if app_mode == "Introduction":
   st.image("ESG_image.png", use_column_width=True)
 
 
-  st.markdown("Environmental - Social - Governance")
+  st.markdown("##Environmental - Social - Governance")
   st.markdown("##### Wondering how ESG rankings truly effect company investment & returns?")
   st.markdown("Our goal is explore a companies profit margin ratio relative to ESG Rankings & finding/creating a positive feedback loop ")
   st.markdown("##### Objectives:")
