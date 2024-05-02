@@ -8,5 +8,5 @@ scikit-learn
 graphviz
 mlflow
 missingno
-shapash
+shapash==2.4.3
 
