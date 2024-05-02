@@ -271,7 +271,57 @@ elif app_mode == "Visualization":
   # Display the plot in Streamlit
   st.pyplot(fig)
 
-
+  # - - - - - - - - - - - - - - TAB 5
+  
+  # Bar Charts
+  st.subheader('Bar Charts')
+  
+  # Create subplots
+  fig, axes = plt.subplots(1, 4, figsize=(12, 6))
+  
+  # Plot bar charts
+  sns.barplot(x='ESG_ranking', y='PS_ratio', data=tech_df, ax=axes[0])
+  axes[0].set_title('Average PS Ratio by Group')
+  
+  sns.barplot(x='ESG_ranking', y='PB_ratio', data=tech_df, ax=axes[1])
+  axes[1].set_title('Average PB Ratio by Group')
+  
+  sns.barplot(x='ESG_ranking', y='roa_ratio', data=tech_df, ax=axes[2])
+  axes[2].set_title('Average ROA Ratio by Group')
+  
+  sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[3])  # Swapped 'Volatility_Buy' with 'Volatility_sell'
+  axes[3].set_title('Average stock sell by Group')
+  
+  # Adjust layout
+  plt.tight_layout()
+  
+  # Display the plot in Streamlit
+  st.pyplot(fig)
+  
+  
+  # Create subplots
+  fig, axes = plt.subplots(2, 4, figsize=(16, 8))
+  
+  # Plot bar charts
+  sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[0, 0])
+  axes[0, 0].set_title('Average stock sell by Group')
+  
+  sns.barplot(x='ESG_ranking', y='expected_return (yearly)', data=tech_df, ax=axes[0, 1])
+  axes[0, 1].set_title('Average returns by Group')
+  
+  sns.barplot(x='ESG_ranking', y='NetProfitMargin_ratio', data=tech_df, ax=axes[0, 2])
+  axes[0, 2].set_title('Average profits by Group')
+  
+  sns.barplot(x='ESG_ranking', y='Volatility_Buy', data=tech_df, ax=axes[0, 3])  # Swapped 'Volatility_Buy' with 'Volatility_sell'
+  axes[0, 3].set_title('Average stock buy by Group')
+  
+  # Adjust layout
+  plt.tight_layout()
+  
+  # Display the plot in Streamlit
+  st.pyplot(fig)
+  
+  
 
 
 # - - - - - - - - - - - PREDICTION - - - - - - - - - - -
