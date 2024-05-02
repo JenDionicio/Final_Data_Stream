@@ -9,3 +9,4 @@ graphviz
 mlflow
 missingno
 SmartExplainer
+shapash.explainer.smart_explainer
