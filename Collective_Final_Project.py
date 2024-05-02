@@ -35,22 +35,23 @@ if app_mode == "Introduction":
 
   st.markdown("## Environmental - Social - Governance")
   st.markdown("##### Wow ESG rankings truly effect company investment & returns?")
-  st.markdown("""
-  ##### Objective:
-  - Our goal is to explore a companies profit margin ratio relative to ESG Rankings to make a positive feedback loop
-  """)
   
-  st.markdown("##### Approach:")
-  st.markdown("""
-  1. Data Exploration
-      - Shape, outliers, nulls
-  2. Comprehensive Variable Analysis
-      - Univariate Analysis
-      - Bi-variate analysis
-      - Multi-variate analysis
-  3. Modelling
-      - Build model that solves business problem 
-  """)
+  with st.beta_expander("Objective"):
+      st.markdown("""
+      - Our goal is to explore a company's profit margin ratio relative to ESG Rankings to create a positive feedback loop.
+      """)
+  
+  with st.beta_expander("Approach"):
+      st.markdown("""
+      1. Data Exploration
+          - Shape, outliers, nulls
+      2. Comprehensive Variable Analysis
+          - Univariate Analysis
+          - Bi-variate analysis
+          - Multi-variate analysis
+      3. Modelling
+          - Build model that solves business problem 
+      """)
 
   
   num = st.number_input('No. of Rows', 5, 10)
