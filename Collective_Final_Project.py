@@ -125,14 +125,17 @@ elif app_mode == "Visualization":
   st.title("Visualization")
   
   # DATA VISUALISATION
-  tab1, tab2, tab3, tab4 = st.tabs(["SNS Plot", "Correlation Map", "Line Chart", "Pie Plot"])
+  tab1, tab2, tab3, tab4 = st.tabs(["Pair Plots", "Correlation Map", "Line Chart", "Pie Plot"])
 
-  #SNS plot
-  tab1.subheader("SNS plot")
+  # DF defenition
   tech_df = tech_df.sample(n=10000)
+  
+  #Bigger Pair Plot -- too much time to generate
+  tab1.subheader("All Vaiable Pair Plot")
   tab1.image('bigger_pairplot.png', use_column_width = True)
 
-  tab1.subheader("Focus Variable Pair Plot")
+  # Focus Variable 
+  tab1.subheader("Focus Variables Pair Plot")
   tab1.image('smaller_pairplot.png', use_column_width = True)
 
 
