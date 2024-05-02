@@ -360,9 +360,14 @@ elif app_mode == "Prediction":
   xpl.compile(x=X_test, y_pred=y_pred)
   fig = xpl.plot.features_importance()
   
-  # Display the plot directly using Matplotlib's plt.show()
-  plt.show(fig)
-  st.pyplot(fig)
+  # Convert Matplotlib figure to PIL image
+  buf = io.BytesIO()
+  fig.savefig(buf, format='png')
+  buf.seek(0)
+  img = Image.open(buf)
+  
+  # Display the PIL image using Streamlit
+  st.image(img)
 
 
    
