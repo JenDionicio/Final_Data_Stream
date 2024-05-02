@@ -40,25 +40,14 @@ if app_mode == "Introduction":
   
   st.markdown("##### Approach:")
   st.markdown("""
-  1. Item 1
-      - Subitem 1
-      - Subitem 2
-  2. Item 2
-      - Subitem 1
-      - Subitem 2
-  3. Item 3
-      - Subitem 1
-      - Subitem 2
-  """)
-  st.markdown("""
   1. Data Exploration
-    - Shape, outliers, nulls
+      - Shape, outliers, nulls
   2. Comprehensive Variable Analysis
-    - Univariate Analysis
-    - Bi-variate analysis
-    - Multi-variate analysis
+      - Univariate Analysis
+      - Bi-variate analysis
+      - Multi-variate analysis
   3. Modelling
-    - Build model that solves business problem 
+      - Build model that solves business problem 
   """)
 
   
