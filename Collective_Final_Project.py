@@ -15,7 +15,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.preprocessing import LabelEncoder
 import graphviz
 import missingno as mno
-from shapash.explainer.smart_explainer import SmartExplainer
+import SmartExplainer
 
 
 st.sidebar.header("Dashboard")
