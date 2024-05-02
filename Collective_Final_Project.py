@@ -218,7 +218,7 @@ elif app_mode == "Visualization":
   tab3.write(low_rank_group.describe())
 
   
-  # - - - - - - - - - - - - - - TAB 3
+  # - - - - - - - - - - - - - - TAB 4
   # Histograms
   st.subheader('Histograms')
   
@@ -237,6 +237,33 @@ elif app_mode == "Visualization":
   
   sns.histplot(tech_df['roa_ratio'], kde=True, ax=axes[1, 1])
   axes[1, 1].set_title('Histogram of ROA Ratio')
+  
+  # Adjust layout
+  plt.tight_layout()
+  
+  # Display the plot in Streamlit
+  st.pyplot(fig)
+
+  # - - - - - - - - - - - - - - TAB 5
+  
+  # Box Plots
+  st.subheader('Box Plots')
+  
+  # Create subplots
+  fig, axes = plt.subplots(1, 4, figsize=(12, 6))
+  
+  # Plot box plots
+  sns.boxplot(y='ESG_ranking', data=tech_df, ax=axes[0])
+  axes[0].set_title('Box Plot of ESG Ranking')
+  
+  sns.boxplot(y='PS_ratio', data=tech_df, ax=axes[1])
+  axes[1].set_title('Box Plot of PS Ratio')
+  
+  sns.boxplot(y='PB_ratio', data=tech_df, ax=axes[2])
+  axes[2].set_title('Box Plot of PB Ratio')
+  
+  sns.boxplot(y='roa_ratio', data=tech_df, ax=axes[3])
+  axes[3].set_title('Box Plot of ROA Ratio')
   
   # Adjust layout
   plt.tight_layout()
