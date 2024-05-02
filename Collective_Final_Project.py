@@ -55,7 +55,7 @@ if app_mode == "Introduction":
 
   # - - - - - - - - - - - - - - - - - -
 
-  st.markdown("\n\n")
+  st.markdown("<hr>", unsafe_allow_html=True)
 
   st.markdown("### About the Data Set")
   
