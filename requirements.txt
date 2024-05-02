@@ -8,5 +8,4 @@ scikit-learn
 graphviz
 mlflow
 missingno
-SmartExplainer
-shapash.explainer.smart_explainer
+shapash
