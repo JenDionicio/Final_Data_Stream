@@ -171,87 +171,87 @@ elif app_mode == "Visualization":
   tab3.subheader("Summary statistics for low ESG ranking group:")
   tab3.write(low_rank_group.describe())
 
-elif app_mode == "Prediction":
-  st.title("Prediction")
-  from sklearn.model_selection import train_test_split
-  from sklearn.linear_model import LinearRegression
-  from sklearn.metrics import mean_squared_error, r2_score
-  import pandas as pd
-  from sklearn.preprocessing import LabelEncoder
-  import seaborn as sns
-  import matplotlib.pyplot as plt
+# elif app_mode == "Prediction":
+#   st.title("Prediction")
+#   from sklearn.model_selection import train_test_split
+#   from sklearn.linear_model import LinearRegression
+#   from sklearn.metrics import mean_squared_error, r2_score
+#   import pandas as pd
+#   from sklearn.preprocessing import LabelEncoder
+#   import seaborn as sns
+#   import matplotlib.pyplot as plt
   
-  # Assuming df is your DataFrame containing all variables
-  # df = pd.read_csv("transactions_dataset.csv")
-  #variables = df.columns
-  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
-  temp_df = df[cols]
-  # Get list of all variable names
-  label_encoder = LabelEncoder()
-  for name in list(cols):
-    temp_df[name] = label_encoder.fit_transform(temp_df[name])
+#   # Assuming df is your DataFrame containing all variables
+#   # df = pd.read_csv("transactions_dataset.csv")
+#   #variables = df.columns
+#   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
+#   temp_df = df[cols]
+#   # Get list of all variable names
+#   label_encoder = LabelEncoder()
+#   for name in list(cols):
+#     temp_df[name] = label_encoder.fit_transform(temp_df[name])
   
-  #for target_variable in variables
-  # Select the target variable for prediction
-  y = temp_df['NetProfitMargin_ratio']
+#   #for target_variable in variables
+#   # Select the target variable for prediction
+#   y = temp_df['NetProfitMargin_ratio']
 
-  # Select predictors (all other variables except the target variable)
-  X = temp_df.drop(columns=['NetProfitMargin_ratio'])
+#   # Select predictors (all other variables except the target variable)
+#   X = temp_df.drop(columns=['NetProfitMargin_ratio'])
 
-  # Split the data into training and testing sets
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+#   # Split the data into training and testing sets
+#   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-  # Fit linear regression model
-  model = LinearRegression()
-  model.fit(X_train, y_train)
+#   # Fit linear regression model
+#   model = LinearRegression()
+#   model.fit(X_train, y_train)
 
-  # Make predictions
-  y_pred = model.predict(X_test)
-  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+#   # Make predictions
+#   y_pred = model.predict(X_test)
+#   results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
   
-  # Calculate accuracy metrics
-  st.subheader('Actual vs. Predicted for Net Profit Margin ratio')
-  scatter_plot = sns.scatterplot(x='Actual', y='Predicted', data=results_df)
-  scatter_plot.set_title('Actual vs. Predicted for NetProfitMargin_ratio')
-  scatter_plot.set_xlabel('Actual')
-  scatter_plot.set_ylabel('Predicted')
-  sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
-  st.pyplot()
+#   # Calculate accuracy metrics
+#   st.subheader('Actual vs. Predicted for Net Profit Margin ratio')
+#   scatter_plot = sns.scatterplot(x='Actual', y='Predicted', data=results_df)
+#   scatter_plot.set_title('Actual vs. Predicted for NetProfitMargin_ratio')
+#   scatter_plot.set_xlabel('Actual')
+#   scatter_plot.set_ylabel('Predicted')
+#   sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
+#   st.pyplot()
   
-  # MLFLOW:  
-  # Remove existing directory and its contents
+#   # MLFLOW:  
+#   # Remove existing directory and its contents
   
-  # Load dataset and preprocess
-  cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
-  temp_df = df[cols]
+#   # Load dataset and preprocess
+#   cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
+#   temp_df = df[cols]
   
-  # Select the target variable for prediction
-  y = temp_df["NetProfitMargin_ratio"]
+#   # Select the target variable for prediction
+#   y = temp_df["NetProfitMargin_ratio"]
   
-  # Select predictors (all other variables except the target variable)
-  X = temp_df.drop(columns=["NetProfitMargin_ratio"])
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+#   # Select predictors (all other variables except the target variable)
+#   X = temp_df.drop(columns=["NetProfitMargin_ratio"])
+#   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
   
-  # Decision Tree example
-  dt_param_grid = {'max_depth': [3, 5, 10], 'min_samples_leaf': [1, 2, 4]}
-dt = DecisionTreeRegressor(random_state=42)
-dt_grid_search = GridSearchCV(estimator=dt, param_grid=dt_param_grid, cv=5)
-dt_grid_search.fit(X_train, y_train)
-best_dt = dt_grid_search.best_estimator_
+#   # Decision Tree example
+#   dt_param_grid = {'max_depth': [3, 5, 10], 'min_samples_leaf': [1, 2, 4]}
+# dt = DecisionTreeRegressor(random_state=42)
+# dt_grid_search = GridSearchCV(estimator=dt, param_grid=dt_param_grid, cv=5)
+# dt_grid_search.fit(X_train, y_train)
+# best_dt = dt_grid_search.best_estimator_
 
-mlflow.start_run() 
-mlflow.log_params(dt_grid_search.best_params_)
-mlflow.sklearn.log_model(best_dt, "best_dt")
-mlflow.sklearn.save_model(best_dt, "best_dt_model")
-y_pred_dt = best_dt.predict(X_test)
-mse_dt = metrics.mean_squared_error(y_test, y_pred_dt)
-r2_dt = metrics.r2_score(y_test, y_pred_dt)
+# mlflow.start_run() 
+# mlflow.log_params(dt_grid_search.best_params_)
+# mlflow.sklearn.log_model(best_dt, "best_dt")
+# mlflow.sklearn.save_model(best_dt, "best_dt_model")
+# y_pred_dt = best_dt.predict(X_test)
+# mse_dt = metrics.mean_squared_error(y_test, y_pred_dt)
+# r2_dt = metrics.r2_score(y_test, y_pred_dt)
 
-mlflow.log_metric("MSE", mse_dt)
-mlflow.log_metric("R2", r2_dt)
+# mlflow.log_metric("MSE", mse_dt)
+# mlflow.log_metric("R2", r2_dt)
 
-# Display results in Streamlit
-st.title("Net Profit Margin Prediction")
-st.subheader("Decision Tree Regression")
-st.write("Mean Squared Error (Decision Tree):", mse_dt)
-st.write("R^2 Score (Decision Tree):", r2_dt)
+# # Display results in Streamlit
+# st.title("Net Profit Margin Prediction")
+# st.subheader("Decision Tree Regression")
+# st.write("Mean Squared Error (Decision Tree):", mse_dt)
+# st.write("R^2 Score (Decision Tree):", r2_dt)
