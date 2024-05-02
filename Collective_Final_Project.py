@@ -14,6 +14,7 @@ from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.preprocessing import LabelEncoder
 import graphviz
+from PIL import Image
 import missingno as mno
 
 
