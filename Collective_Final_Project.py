@@ -70,7 +70,6 @@ if app_mode == "Introduction":
 
   st.text(f'This data frame has {df.shape[0]} Rows and {df.shape[1]} columns')
 
-
   
   st.markdown("\n\n##### About the Variables")
   st.dataframe(df.describe())
@@ -100,12 +99,13 @@ if app_mode == "Introduction":
       st.pyplot()
   
   if total_miss <= 30:
-    st.success("We have less then 30 percent of missing values, which is good. This provides us with more accurate data as the null values will not significantly affect the outcomes of our conclusions. And no bias will steer towards misleading results. ")
+    st.success("This Data set is reliable to use with small amounts of missing values, thus yielding accurate data.")
   else:
     st.warning("Poor data quality due to greater than 30 percent of missing value.")
     st.markdown(" > Theoretically, 25 to 30 percent is the maximum missing values are allowed, there's no hard and fast rule to decide this threshold. It can vary from problem to problem.")
 
-  st.markdown("### Completeness")
+
+  st.markdown("<hr>### Completeness")
   st.markdown(" The ratio of non-missing values to total records in dataset and how comprehensive the data is.")
 
   st.write("Total data length:", len(df))
