@@ -143,11 +143,6 @@ elif app_mode == "Visualization":
   # Add a button to change the image and message
   button_clicked = False
   
-  # Display the initial message, image, and button
-  st.write(messages[selected_index])
-  st.image(image_paths[selected_index], use_column_width=True)
-  
-  # Add a button to change the image and message
   if not button_clicked:  # Show the button only if it hasn't been clicked yet
       if st.button("Next Image?"):
           # Increment the index to get the next image and message
