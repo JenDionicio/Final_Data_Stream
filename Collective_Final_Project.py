@@ -105,7 +105,7 @@ if app_mode == "Introduction":
     st.markdown(" > Theoretically, 25 to 30 percent is the maximum missing values are allowed, there's no hard and fast rule to decide this threshold. It can vary from problem to problem.")
 
 
-  st.markdown("<hr>### Completeness")
+  st.markdown("<hr> ### Completeness")
   st.markdown(" The ratio of non-missing values to total records in dataset and how comprehensive the data is.")
 
   st.write("Total data length:", len(df))
