@@ -14,6 +14,7 @@ from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.preprocessing import LabelEncoder
 import graphviz
+import missingno as mno
 
 
 st.sidebar.header("Dashboard")
@@ -59,7 +60,7 @@ if app_mode == "Introduction":
 
   st.markdown("### About the Data Set")
   
-  num = st.number_input('Data rows displayed', 5, 10)
+  num = st.number_input('How many rows would you like to see?', 5, 10)
 
   head = st.radio('View from top (head) or bottom (tail)', ('Head', 'Tail'))
   if head == 'Head':
@@ -69,17 +70,28 @@ if app_mode == "Introduction":
 
   st.text(f'This data frame has {df.shape[0]} Rows and {df.shape[1]} columns')
 
-  st.markdown("##### Key Variables")
 
+  
+  st.markdown("\n\n##### About the Variables")
   st.dataframe(df.describe())
 
-  st.markdown("### Missing Values")
-  st.markdown("Null or NaN values.")
+  st.markdown("\n\n### Missing Values")
+  st.markdown("Are there any Null or NaN?")
 
-  dfnull = df.isnull().sum()/len(df)*100
-  totalmiss = dfnull.sum().round(2)
-  st.write("Percentage of total missing values:",totalmiss)
+  # Calculate percentage of missing values
+  dfnull = tech_df.isnull().sum() / len(tech_df) * 100
+  total_miss = dfnull.sum().round(2)
+  
+  # Display percentage of total missing values
+  st.write("Percentage of total missing values:", total_miss, "%")
+  
+  # Display DataFrame with missing value percentages
+  st.write("Percentage of Missing Values:")
   st.write(dfnull)
+  
+  # Display Missing Values Matrix
+  st.write("Missing Values Matrix:")
+  st.write(msno.matrix(tech_df, figsize=(20, 6)))
   if totalmiss <= 30:
     st.success("We have less then 30 percent of missing values, which is good. This provides us with more accurate data as the null values will not significantly affect the outcomes of our conclusions. And no bias will steer towards misleading results. ")
   else:
