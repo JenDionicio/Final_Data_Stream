@@ -108,6 +108,25 @@ elif app_mode == "Visualization":
 
   # Display the plot within the Streamlit app
   tab2.pyplot()
+  
+  # Line PLot
+  tab3.subheader("Line....")
+  # Grouping based on condition
+  high_rank = tech_df.groupby(tech_df['ESG_ranking'] > tech_df['ESG_ranking'].mean())
+
+  # Get the group with ESG_ranking greater than the mean
+  high_rank_group = high_rank.get_group(True)
+
+  # Display summary statistics for the group
+  tab3.subheader("Summary statistics for high ESG ranking group:")
+  tab3.write(high_rank_group.describe())
+
+  # Get the group with ESG_ranking less than or equal to the mean
+  low_rank_group = high_rank.get_group(False)
+
+  # Display summary statistics for the group
+  tab3.subheader("Summary statistics for low ESG ranking group:")
+  tab3.write(low_rank_group.describe())
 
 elif app_mode == "Prediction":
   st.title("Prediction")
