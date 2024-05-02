@@ -8,3 +8,4 @@ scikit-learn
 graphviz
 mlflow
 missingno
+SmartExplainer
