@@ -55,7 +55,7 @@ if app_mode == "Introduction":
 
   # - - - - - - - - - - - - - - - - - -
 
-  st.markdown("<br>  <!-- Empty line using HTML <br> tag -->")
+  st.markdown("\n\n")
 
   st.markdown("### About the Data Set")
   
