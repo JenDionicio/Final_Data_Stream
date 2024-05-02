@@ -35,8 +35,8 @@ if app_mode == "Introduction":
 
   st.markdown("## Environmental - Social - Governance")
   st.markdown("###### Wondering how ESG rankings truly effect company investment & returns?")
-  st.markdown("##### Objectives:")
-  st.markdown("- Our goal is to explore a companies profit margin ratio relative to ESG Rankings to make a positive feedback loop")
+  st.markdown("##### Objective:")
+  st.markdown("- ### Our goal is to explore a companies profit margin ratio relative to ESG Rankings to make a positive feedback loop")
   
   
   st.markdown("\t - Do a comprehensive analysis as to which variables within the Technology industries allow for a company to have a more income and thus better investments ")
