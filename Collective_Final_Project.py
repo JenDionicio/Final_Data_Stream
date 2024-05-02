@@ -353,24 +353,8 @@ elif app_mode == "Prediction":
   st.table(df)
 
   # - - - - - - - - - - - - - 
-  from shapash.explainer.smart_explainer import SmartExplainer
+  st.image('newplot.png')
   
-  # Assuming `clf`, `X_test`, and `y_pred` are already defined
-  xpl = SmartExplainer(clf)
-  y_pred = pd.Series(y_pred)
-  X_test = X_test.reset_index(drop=True)
-  xpl.compile(x=X_test, y_pred=y_pred)
-  fig = xpl.plot.features_importance()
-  
-  # Render the figure into a PIL image
-  buf = io.BytesIO()
-  canvas = FigureCanvasAgg(fig)
-  canvas.print_png(buf)
-  buf.seek(0)
-  img = Image.open(buf)
-  
-  # Display the PIL image using Streamlit
-  st.image(img)
 
 
    
