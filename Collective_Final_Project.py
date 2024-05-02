@@ -152,9 +152,9 @@ elif app_mode == "Visualization":
       # Display the next image
       tab1.image(image_paths[selected_index], use_column_width=True)
   
-  # - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - TAB 2
   # HEAT MAP
-   tab2.title('Heatmap Correlation')
+  tab2.title('Heatmap Correlation')
   
   # heat map code
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
@@ -165,7 +165,10 @@ elif app_mode == "Visualization":
   
   # Display the plot within the Streamlit app
   tab2.pyplot(fig2)
-  
+
+  # - - - - - - - - - - - - - - TAB 3
+
+
   # Line PLot
   tab3.subheader("Line....")
   # Grouping based on condition
