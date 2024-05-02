@@ -204,25 +204,25 @@ elif app_mode == "Prediction":
   import seaborn as sns
   import matplotlib.pyplot as plt
   
-#   # Assuming df is your DataFrame containing all variables
-#   # df = pd.read_csv("transactions_dataset.csv")
-#   #variables = df.columns
-#   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
-#   temp_df = df[cols]
-#   # Get list of all variable names
-#   label_encoder = LabelEncoder()
-#   for name in list(cols):
-#     temp_df[name] = label_encoder.fit_transform(temp_df[name])
+  # Assuming df is your DataFrame containing all variables
+  # df = pd.read_csv("transactions_dataset.csv")
+  #variables = df.columns
+  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
+  temp_df = df[cols]
+  # Get list of all variable names
+  label_encoder = LabelEncoder()
+  for name in list(cols):
+    temp_df[name] = label_encoder.fit_transform(temp_df[name])
   
-#   #for target_variable in variables
-#   # Select the target variable for prediction
-#   y = temp_df['NetProfitMargin_ratio']
+  #for target_variable in variables
+  # Select the target variable for prediction
+  y = temp_df['NetProfitMargin_ratio']
 
-#   # Select predictors (all other variables except the target variable)
-#   X = temp_df.drop(columns=['NetProfitMargin_ratio'])
+  # Select predictors (all other variables except the target variable)
+  X = temp_df.drop(columns=['NetProfitMargin_ratio'])
 
-#   # Split the data into training and testing sets
-#   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  # Split the data into training and testing sets
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 #   # Fit linear regression model
 #   model = LinearRegression()
