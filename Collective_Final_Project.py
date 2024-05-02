@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 from PIL import Image
+import io  
 import mlflow
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -365,9 +366,6 @@ elif app_mode == "Prediction":
   fig.savefig(buf, format='png')
   buf.seek(0)
   img = Image.open(buf)
-  
-  # Display the PIL image using Streamlit
-  st.image(img)
 
 
    
