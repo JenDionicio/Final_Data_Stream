@@ -128,6 +128,8 @@ elif app_mode == "Visualization":
 
   # DF defenition
   tech_df = tech_df.sample(n=10000)
+
+  # - - - - - - - - - - - - - - -  TAB1
   # Define image paths and messages
   image_paths = ['bigger_pairplot.png', 'Annoted_bigger_sns.png', 'smaller_pairplot.png']
   messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
@@ -136,19 +138,19 @@ elif app_mode == "Visualization":
   selected_index = 0
   
   # Define a boolean variable to track whether the button has been clicked
-  st.write(messages[selected_index])
-  st.image(image_paths[selected_index], use_column_width=True)
+  tab1.write(messages[selected_index])
+  tab1.image(image_paths[selected_index], use_column_width=True)
   
   # Add a button to change the image and message
-  if st.button("Next Image?"):
+  if tab1.button("Next Image?"):
       # Increment the index to get the next image and message
       selected_index = (selected_index + 1) % len(image_paths)
       # Clear the previous image and message
-      st.write("")
+      tab1.write("")
       # Display the next message
-      st.write(messages[selected_index])
+      tab1.write(messages[selected_index])
       # Display the next image
-      st.image(image_paths[selected_index], use_column_width=True)
+      tab1.image(image_paths[selected_index], use_column_width=True)
   
   # - - - - - - - - - - - - - - 
   # HEAT MAP
