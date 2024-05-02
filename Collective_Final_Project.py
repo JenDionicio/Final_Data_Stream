@@ -15,6 +15,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.preprocessing import LabelEncoder
 import graphviz
 import missingno as mno
+from sklearn.tree import export_graphviz
 
 
 
