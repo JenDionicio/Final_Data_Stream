@@ -191,27 +191,24 @@ elif app_mode == "Prediction":
   
   # Decision Tree example
   dt_param_grid = {'max_depth': [3, 5, 10], 'min_samples_leaf': [1, 2, 4]}
-  dt = DecisionTreeRegressor(random_state=42)
-  dt_grid_search = GridSearchCV(estimator=dt, param_grid=dt_param_grid, cv=5)
-  dt_grid_search.fit(X_train, y_train)
-  best_dt = dt_grid_search.best_estimator_
-  with mlflow.start_run():
-  
-    mlflow.log_params(dt_grid_search.best_params_)
-    mlflow.sklearn.log_model(best_dt, "best_dt")
-    mlflow.sklearn.save_model(best_dt, "best_dt_model")
-    y_pred_dt = best_dt.predict(X_test)
-    mse_dt = metrics.mean_squared_error(y_test, y_pred_dt)
-    r2_dt = metrics.r2_score(y_test, y_pred_dt)
-    
-    mlflow.log_metric("MSE", mse_dt)
-    mlflow.log_metric("R2", r2_dt)
-    
-  # Display results in Streamlit
-  st.title("Net Profit Margin Prediction")
-  st.subheader("Decision Tree Regression")
-  st.write("Mean Squared Error (Decision Tree):", mse_dt)
-  st.write("R^2 Score (Decision Tree):", r2_dt)
-    
-    
-    
+dt = DecisionTreeRegressor(random_state=42)
+dt_grid_search = GridSearchCV(estimator=dt, param_grid=dt_param_grid, cv=5)
+dt_grid_search.fit(X_train, y_train)
+best_dt = dt_grid_search.best_estimator_
+
+mlflow.start_run() 
+mlflow.log_params(dt_grid_search.best_params_)
+mlflow.sklearn.log_model(best_dt, "best_dt")
+mlflow.sklearn.save_model(best_dt, "best_dt_model")
+y_pred_dt = best_dt.predict(X_test)
+mse_dt = metrics.mean_squared_error(y_test, y_pred_dt)
+r2_dt = metrics.r2_score(y_test, y_pred_dt)
+
+mlflow.log_metric("MSE", mse_dt)
+mlflow.log_metric("R2", r2_dt)
+
+# Display results in Streamlit
+st.title("Net Profit Margin Prediction")
+st.subheader("Decision Tree Regression")
+st.write("Mean Squared Error (Decision Tree):", mse_dt)
+st.write("R^2 Score (Decision Tree):", r2_dt)
