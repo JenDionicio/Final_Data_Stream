@@ -300,7 +300,25 @@ elif app_mode == "Prediction":
   # Plot decision tree
   st.graphviz_chart(export_graphviz(clf, out_file=None, feature_names=X.columns, filled=True, rounded=True))
 
-  # - - - - - - - - - - - - - - - - -
+  # - - - - - - - - - - - - - - - - - PYCARET
+
+  data = {
+    'Description': ['Session id', 'Target', 'Target type', 'Original data shape', 'Transformed data shape',
+                    'Transformed train set shape', 'Transformed test set shape', 'Numeric features',
+                    'Preprocess', 'Imputation type', 'Numeric imputation', 'Categorical imputation',
+                    'Transform target', 'Transform target method', 'Fold Generator', 'Fold Number',
+                    'CPU Jobs', 'Use GPU', 'Log Experiment', 'Experiment Name', 'USI'],
+    'Value': [2557, 'NetProfitMargin_ratio', 'Regression', '(92401, 10)', '(92401, 10)', '(64680, 10)',
+              '(27721, 10)', 9, True, 'simple', 'mean', 'mode', True, 'yeo-johnson', 'KFold', 10, -1,
+              False, False, 'test1', '08d7']
+  }
+  
+  df = pd.DataFrame(data)
+
+  # Display DataFrame as a table
+  st.table(df)
+
+  
   # Create a DataFrame from the given data
   data = {
       'Model': ['knn', 'rf', 'et', 'lightgbm', 'xgboost', 'dt', 'gbr', 'ada', 'br', 'ridge',
