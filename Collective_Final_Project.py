@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import seaborn as sns
-from PIL import Imagee
+from PIL import Image
 import mlflow
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -140,15 +140,15 @@ elif app_mode == "Visualization":
   st.image(image_paths[selected_index], use_column_width=True)
   
   # Add a button to change the image and message
-  # if st.button("Next Image?"):
-  #     # Increment the index to get the next image and message
-  #     selected_index = (selected_index + 1) % len(image_paths)
-  #     # Clear the previous image and message
-  #     st.write("")
-  #     # Display the next message
-  #     st.write(messages[selected_index])
-  #     # Display the next image
-  #     st.image(image_paths[selected_index], use_column_width=True)
+  if st.button("Next Image?"):
+      # Increment the index to get the next image and message
+      selected_index = (selected_index + 1) % len(image_paths)
+      # Clear the previous image and message
+      st.write("")
+      # Display the next message
+      st.write(messages[selected_index])
+      # Display the next image
+      st.image(image_paths[selected_index], use_column_width=True)
   
   #Bigger Pair Plot -- too much time to generate
   # tab1.subheader("All Vaiable Pair Plot")
