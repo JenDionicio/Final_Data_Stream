@@ -160,14 +160,6 @@ elif app_mode == "Visualization":
           st.image(image_paths[selected_index], use_column_width=True)
           # Set button_clicked to True to indicate that the button has been clicked
           button_clicked = True
-    
-  #Bigger Pair Plot -- too much time to generate
-  # tab1.subheader("All Vaiable Pair Plot")
-  # tab1.image('bigger_pairplot.png', use_column_width = True)
-
-  # # Focus Variable 
-  # tab1.subheader("Focus Variables Pair Plot")
-  # tab1.image('smaller_pairplot.png', use_column_width = True)
 
 
   # Heat Map
