@@ -141,16 +141,25 @@ elif app_mode == "Visualization":
 
   
   # Add a button to change the image and message
-  if st.button("Next Image?"):
-      # Increment the index to get the next image and message
-      selected_index = (selected_index + 1) % len(image_paths)
-      # Clear the previous image and message
-      st.write("")
-      # Display the next message
-      st.write(messages[selected_index])
-      # Display the next image
-      st.image(image_paths[selected_index], use_column_width=True)
-      st.button("Next Image?")
+  button_clicked = False
+  
+  # Display the initial message, image, and button
+  st.write(messages[selected_index])
+  st.image(image_paths[selected_index], use_column_width=True)
+  
+  # Add a button to change the image and message
+  if not button_clicked:  # Show the button only if it hasn't been clicked yet
+      if st.button("Next Image?"):
+          # Increment the index to get the next image and message
+          selected_index = (selected_index + 1) % len(image_paths)
+          # Clear the previous image and message
+          st.write("")
+          # Display the next message
+          st.write(messages[selected_index])
+          # Display the next image
+          st.image(image_paths[selected_index], use_column_width=True)
+          # Set button_clicked to True to indicate that the button has been clicked
+          button_clicked = True
     
   #Bigger Pair Plot -- too much time to generate
   # tab1.subheader("All Vaiable Pair Plot")
