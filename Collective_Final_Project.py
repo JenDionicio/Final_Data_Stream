@@ -85,16 +85,21 @@ if app_mode == "Introduction":
   # Display percentage of total missing values
   st.write("Percentage of total missing values:", total_miss, "%")
   
-  # Display DataFrame with missing value percentages
-  st.write("Percentage of Missing Values:")
-  st.write(dfnull)
+  # Create two columns layout
+  col1, col2 = st.columns(2)
   
-  # Display Missing Values Matrix
-  st.write("Missing Values Matrix:")
-  mno.matrix(tech_df, figsize=(20, 6))
-  st.pyplot()
+  # Display DataFrame with missing value percentages in the first column
+  with col1:
+      st.write("Percentage of Missing Values:")
+      st.write(dfnull)
   
-  if totalmiss <= 30:
+  # Display Missing Values Matrix in the second column
+  with col2:
+      st.write("Missing Values Matrix:")
+      msno.matrix(tech_df, figsize=(20, 6))
+      st.pyplot()
+  
+  if total_miss <= 30:
     st.success("We have less then 30 percent of missing values, which is good. This provides us with more accurate data as the null values will not significantly affect the outcomes of our conclusions. And no bias will steer towards misleading results. ")
   else:
     st.warning("Poor data quality due to greater than 30 percent of missing value.")
