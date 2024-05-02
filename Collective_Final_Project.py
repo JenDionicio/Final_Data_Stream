@@ -244,25 +244,25 @@ elif app_mode == "Prediction":
   scatter_plot.set_xlabel('Actual')
   scatter_plot.set_ylabel('Predicted')
 
-# Regression line plot
-sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=ax)
+  # Regression line plot
+  sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=ax)
+  
+  # Display the plot within the Streamlit app
+  st.pyplot(fig)
 
-# Display the plot within the Streamlit app
-st.pyplot(fig)
+# - - - - - - - - - - - - - - MLFLOW
+  # Remove existing directory and its contents
   
-#   # MLFLOW:  
-#   # Remove existing directory and its contents
+  # Load dataset and preprocess
+  cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
+  temp_df = df[cols]
   
-#   # Load dataset and preprocess
-#   cols = ['ESG_ranking', 'Volatility_Buy', 'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']  # possible essential columns
-#   temp_df = df[cols]
+  # Select the target variable for prediction
+  y = temp_df["NetProfitMargin_ratio"]
   
-#   # Select the target variable for prediction
-#   y = temp_df["NetProfitMargin_ratio"]
-  
-#   # Select predictors (all other variables except the target variable)
-#   X = temp_df.drop(columns=["NetProfitMargin_ratio"])
-#   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+  # Select predictors (all other variables except the target variable)
+  X = temp_df.drop(columns=["NetProfitMargin_ratio"])
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
   
 #   # Decision Tree example
 #   dt_param_grid = {'max_depth': [3, 5, 10], 'min_samples_leaf': [1, 2, 4]}
