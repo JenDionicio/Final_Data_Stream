@@ -360,7 +360,7 @@ elif app_mode == "Prediction":
   xpl.compile(x=X_test, y_pred=y_pred)
   fig = xpl.plot.features_importance()
   
-  # Display the plot
+  # Display the plot directly in Streamlit
   st.pyplot(fig)
 
 
