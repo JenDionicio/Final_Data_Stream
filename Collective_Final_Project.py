@@ -155,6 +155,8 @@ elif app_mode == "Visualization":
           st.image(image_paths[selected_index], use_column_width=True)
           # Set button_clicked to True to indicate that the button has been clicked
           button_clicked = True
+  else:
+      button_click = False
 
 
   # Heat Map
