@@ -149,6 +149,7 @@ elif app_mode == "Visualization":
 
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio','Composite_Score',  'ESG_PS_interaction',  'ESG_PB_interaction',  'PS_PB_interaction' ] 
 
+  # - - - - - - - - - - - - Sns
   
   st.title("Visualization")
   
@@ -167,6 +168,7 @@ elif app_mode == "Visualization":
   selected_index = 0
   
   # Define a boolean variable to track whether the button has been clicked
+  tab1.title("PAIR PLOTS")
   tab1.write(messages[selected_index])
   tab1.image(image_paths[selected_index], use_column_width=True)
   
@@ -214,7 +216,35 @@ elif app_mode == "Visualization":
   # Display summary statistics for the group
   tab3.subheader("Summary statistics for low ESG ranking group:")
   tab3.write(low_rank_group.describe())
+
+  
   # - - - - - - - - - - - - - - TAB 3
+  # Histograms
+  st.subheader('Histograms')
+  
+  # Create subplots
+  fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+  
+  # Plot histograms
+  sns.histplot(tech_df['ESG_ranking'], kde=True, ax=axes[0, 0])
+  axes[0, 0].set_title('Histogram of ESG Ranking')
+  
+  sns.histplot(tech_df['PS_ratio'], kde=True, ax=axes[0, 1])
+  axes[0, 1].set_title('Histogram of PS Ratio')
+  
+  sns.histplot(tech_df['PB_ratio'], kde=True, ax=axes[1, 0])
+  axes[1, 0].set_title('Histogram of PB Ratio')
+  
+  sns.histplot(tech_df['roa_ratio'], kde=True, ax=axes[1, 1])
+  axes[1, 1].set_title('Histogram of ROA Ratio')
+  
+  # Adjust layout
+  plt.tight_layout()
+  
+  # Display the plot in Streamlit
+  st.pyplot(fig)
+
+
 
 
 # - - - - - - - - - - - PREDICTION - - - - - - - - - - -
@@ -266,6 +296,9 @@ elif app_mode == "Prediction":
   
   # Display the plot within the Streamlit app
   st.pyplot(fig)
+
+  # - - - - - - - - - - - - - - TAB 3
+
 
 # - - - - - - - - - - - - - - DECISION TREE REGRESSOR
   # Define columns
