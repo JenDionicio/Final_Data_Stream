@@ -150,7 +150,7 @@ elif app_mode == "Visualization":
       st.write(messages[selected_index])
       # Display the next image
       st.image(image_paths[selected_index], use_column_width=True)
-  st.button("Next Image?")
+      st.button("Next Image?")
     
   #Bigger Pair Plot -- too much time to generate
   # tab1.subheader("All Vaiable Pair Plot")
