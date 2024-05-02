@@ -232,14 +232,23 @@ elif app_mode == "Prediction":
   y_pred = model.predict(X_test)
   results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
   
-  # Calculate accuracy metrics
+  # Display the subheader
   st.subheader('Actual vs. Predicted for Net Profit Margin ratio')
-  scatter_plot = sns.scatterplot(x='Actual', y='Predicted', data=results_df)
+  
+  # Create a new Matplotlib figure and axis
+  fig, ax = plt.subplots()
+  
+  # Scatter plot
+  scatter_plot = sns.scatterplot(x='Actual', y='Predicted', data=results_df, ax=ax)
   scatter_plot.set_title('Actual vs. Predicted for NetProfitMargin_ratio')
   scatter_plot.set_xlabel('Actual')
   scatter_plot.set_ylabel('Predicted')
-  sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
-  st.pyplot()
+
+# Regression line plot
+sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=ax)
+
+# Display the plot within the Streamlit app
+st.pyplot(fig)
   
 #   # MLFLOW:  
 #   # Remove existing directory and its contents
