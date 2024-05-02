@@ -39,11 +39,18 @@ if app_mode == "Introduction":
   st.markdown("- Our goal is to explore a companies profit margin ratio relative to ESG Rankings to make a positive feedback loop")
   
   st.markdown("##### Approach:")
-  st.markdown("\t - Do a comprehensive analysis as to which variables within the Technology industries allow for a company to have a more income and thus better investments ")
-  st.markdown("- Use other variables that contribute to investment over the years")
-  st.markdown("- Points that can be made: ESG growth over the years; correlation w Investment & social pressures")
-  st.markdown("- Does ESG ranking positivley or negatively effect investments? ")
+  st.markdown("""
+  1. Data Exploration
+    - Shape, outliers, nulls
+  2. Comprehensive Variable Analysis
+    - Univariate Analysis
+    - Bi-variate analysis
+    - Multi-variate analysis
+  3. Modelling
+    - Build model that solves business problem 
+  """)
 
+  
   num = st.number_input('No. of Rows', 5, 10)
 
   head = st.radio('View from top (head) or bottom (tail)', ('Head', 'Tail'))
