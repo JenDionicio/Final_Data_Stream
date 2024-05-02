@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import seaborn as sns
-from PIL import Image
+from PIL import Imagee
 import mlflow
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -23,7 +23,6 @@ app_mode = st.sidebar.selectbox('Select Page',['Introduction','Visualization','P
 
 df = pd.read_csv("transactions_dataset.csv")
 tech_df = df.loc[df['sector'] == 'TECH']
-
 
 
 if app_mode == "Introduction":
@@ -130,27 +129,32 @@ elif app_mode == "Visualization":
   # DF defenition
   tech_df = tech_df.sample(n=10000)
 
-  image_paths = ['bigger_pairplot.png', 'bigger_pairplot.png']
-
+  image_paths = ['bigger_pairplot.png', 'bigger_pairplot.png','smaller_pairplot.png' ]
+  messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
   # Display the first image
-  selected_image_index = 0
-  st.image(image_paths[selected_image_index], use_column_width=True)
+  selected_index = 0
+
+  st.write(messages[current_message_index])
+  st.image("bigger_pairplot.png", use_column_width=True)
+  
+  st.image(image_paths[selected_index], use_column_width=True)
   
   # Add a button to change the image
   if st.button("Next Image?"):
       selected_image_index = (selected_image_index + 1) % len(image_paths)
       # Clear the previous image
       st.write("")
+      st.write(messages[selected_index])
       # Display the next image
-      st.image(image_paths[selected_image_index], use_column_width=True)
+      st.image(image_paths[selected_index], use_column_width=True)
   
   #Bigger Pair Plot -- too much time to generate
-  tab1.subheader("All Vaiable Pair Plot")
-  tab1.image('bigger_pairplot.png', use_column_width = True)
+  # tab1.subheader("All Vaiable Pair Plot")
+  # tab1.image('bigger_pairplot.png', use_column_width = True)
 
-  # Focus Variable 
-  tab1.subheader("Focus Variables Pair Plot")
-  tab1.image('smaller_pairplot.png', use_column_width = True)
+  # # Focus Variable 
+  # tab1.subheader("Focus Variables Pair Plot")
+  # tab1.image('smaller_pairplot.png', use_column_width = True)
 
 
   # Heat Map
