@@ -108,25 +108,46 @@ if app_mode == "Introduction":
     st.warning("Poor data quality due to greater than 30 percent of missing value.")
     st.markdown(" > Theoretically, 25 to 30 percent is the maximum missing values are allowed, there's no hard and fast rule to decide this threshold. It can vary from problem to problem.")
 
-  # st.markdown("<hr>", unsafe_allow_html=True)
-  # st.markdown("### Completeness")
-  # st.markdown(" The ratio of non-missing values to total records in dataset and how comprehensive the data is.")
-
-  # POSSIBLY DELETE
-  # st.write("Total data length:", len(df))
-  # nonmissing = (df.notnull().sum().round(2))
-  # completeness= round(sum(nonmissing)/len(df),2)
-  # st.write("Completeness ratio:",completeness)
-  # st.write(nonmissing)
-  # if completeness >= 0.80:
-  #   st.success("We have completeness ratio greater than 0.85, which is good. It shows that the vast majority of the data is available for us to use and analyze. ")
-  # else:
-  #   st.success("Poor data quality due to low completeness ratio( less than 0.85).")
-
-
 # - - - - - - - - - - - VISUALIZATION - - - - - - - - - - -
 
 elif app_mode == "Visualization":
+  data = {
+    'ESG_ranking': tech_df['ESG_ranking'],
+    'PS_ratio': tech_df['PS_ratio'],
+    'PB_ratio': tech_df['PB_ratio'],
+    'roa_ratio': tech_df['roa_ratio'],
+  }
+  
+  df = pd.DataFrame(data)
+  
+  # Define weights for each metric
+  weights = {
+      'ESG_ranking': 0.3,
+      'PS_ratio': 0.2,
+      'PB_ratio': 0.3,
+      'roa_ratio': 0.2
+  }
+
+  data = {
+    'ESG_ranking': tech_df['ESG_ranking'],
+    'PS_ratio': tech_df['PS_ratio'],
+    'PB_ratio': tech_df['PB_ratio']
+  }
+  
+  df = pd.DataFrame(data)
+  
+  # Create interaction terms
+  tech_df['ESG_PS_interaction'] = tech_df['ESG_ranking'] * tech_df['PS_ratio']
+  tech_df['ESG_PB_interaction'] = tech_df['ESG_ranking'] * tech_df['PB_ratio']
+  tech_df['PS_PB_interaction'] = tech_df['PS_ratio'] * tech_df['PB_ratio']
+  
+  
+  # Calculate the composite score
+  tech_df['Composite_Score'] = sum(df[col] * weights[col] for col in weights)
+
+  cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio','Composite_Score',  'ESG_PS_interaction',  'ESG_PB_interaction',  'PS_PB_interaction' ] 
+
+  
   st.title("Visualization")
   
   # DATA VISUALISATION
@@ -192,7 +213,6 @@ elif app_mode == "Visualization":
   tab3.subheader("Summary statistics for low ESG ranking group:")
   tab3.write(low_rank_group.describe())
   # - - - - - - - - - - - - - - TAB 3
-
 
 
 # - - - - - - - - - - - PREDICTION - - - - - - - - - - -
@@ -279,4 +299,6 @@ elif app_mode == "Prediction":
   
   # Plot decision tree
   st.graphviz_chart(export_graphviz(clf, out_file=None, feature_names=X.columns, filled=True, rounded=True))
+
+  # - - - - - - - - - - - - - 
    
