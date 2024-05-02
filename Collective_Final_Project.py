@@ -195,7 +195,11 @@ elif app_mode == "Prediction":
   dt_grid_search.fit(X_train, y_train)
   best_dt = dt_grid_search.best_estimator_
   
-  mlflow.start_run()
+  try:
+    mlflow.start_run()
+    # Your MLflow logging code here
+  except Exception as e:
+      print("Error starting MLflow run:", e)
   
   mlflow.log_params(dt_grid_search.best_params_)
   mlflow.sklearn.log_model(best_dt, "best_dt")
