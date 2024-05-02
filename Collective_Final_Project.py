@@ -30,7 +30,7 @@ if app_mode == "Introduction":
   st.title("Introduction")
   st.markdown("### Welcome to our ESG rankings Dashboard!")
 
-  #st.image("veh.jpeg", use_column_width=True)
+  st.image("ESG_image.png", use_column_width=True)
 
   st.markdown("##### Wondering how ESG rankings truly effect company investment & returns?")
   st.markdown("Our goal is explore a companies profit margin ratio relative to ESG Rankings & finding/creating a positive feedback loop ")
