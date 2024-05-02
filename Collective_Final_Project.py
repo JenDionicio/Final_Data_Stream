@@ -141,7 +141,7 @@ elif app_mode == "Visualization":
   st.image(image_paths[selected_index], use_column_width=True)
   
   # Add a button to change the image and message
-  if st.button(f"Next Image?"):
+  if st.button("Next Image?"):
       # Increment the index to get the next image and message
       selected_index = (selected_index + 1) % len(image_paths)
       # Clear the previous image and message
