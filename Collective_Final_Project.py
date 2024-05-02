@@ -224,22 +224,22 @@ elif app_mode == "Prediction":
   # Split the data into training and testing sets
   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-#   # Fit linear regression model
-#   model = LinearRegression()
-#   model.fit(X_train, y_train)
+  # Fit linear regression model
+  model = LinearRegression()
+  model.fit(X_train, y_train)
 
-#   # Make predictions
-#   y_pred = model.predict(X_test)
-#   results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+  # Make predictions
+  y_pred = model.predict(X_test)
+  results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
   
-#   # Calculate accuracy metrics
-#   st.subheader('Actual vs. Predicted for Net Profit Margin ratio')
-#   scatter_plot = sns.scatterplot(x='Actual', y='Predicted', data=results_df)
-#   scatter_plot.set_title('Actual vs. Predicted for NetProfitMargin_ratio')
-#   scatter_plot.set_xlabel('Actual')
-#   scatter_plot.set_ylabel('Predicted')
-#   sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
-#   st.pyplot()
+  # Calculate accuracy metrics
+  st.subheader('Actual vs. Predicted for Net Profit Margin ratio')
+  scatter_plot = sns.scatterplot(x='Actual', y='Predicted', data=results_df)
+  scatter_plot.set_title('Actual vs. Predicted for NetProfitMargin_ratio')
+  scatter_plot.set_xlabel('Actual')
+  scatter_plot.set_ylabel('Predicted')
+  sns.regplot(x='Actual', y='Predicted', data=results_df, scatter=False, color='red', ax=scatter_plot)
+  st.pyplot()
   
 #   # MLFLOW:  
 #   # Remove existing directory and its contents
