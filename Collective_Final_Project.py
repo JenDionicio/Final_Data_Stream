@@ -25,6 +25,8 @@ df = pd.read_csv("transactions_dataset.csv")
 tech_df = df.loc[df['sector'] == 'TECH']
 
 
+# - - - - - - - - - - - INTRODUCTION - - - - - - - - - - -
+
 if app_mode == "Introduction":
 
   st.title("Introduction")
@@ -120,6 +122,8 @@ if app_mode == "Introduction":
   #   st.success("Poor data quality due to low completeness ratio( less than 0.85).")
 
 
+# - - - - - - - - - - - VISUALIZATION - - - - - - - - - - -
+
 elif app_mode == "Visualization":
   st.title("Visualization")
   
@@ -167,10 +171,8 @@ elif app_mode == "Visualization":
   tab2.pyplot(fig2)
 
   # - - - - - - - - - - - - - - TAB 3
+  tab3.title('Differences of ESG Rankings')
 
-
-  # Line PLot
-  tab3.subheader("Line....")
   # Grouping based on condition
   high_rank = tech_df.groupby(tech_df['ESG_ranking'] > tech_df['ESG_ranking'].mean())
 
@@ -187,16 +189,20 @@ elif app_mode == "Visualization":
   # Display summary statistics for the group
   tab3.subheader("Summary statistics for low ESG ranking group:")
   tab3.write(low_rank_group.describe())
+  # - - - - - - - - - - - - - - TAB 3
 
-# elif app_mode == "Prediction":
-#   st.title("Prediction")
-#   from sklearn.model_selection import train_test_split
-#   from sklearn.linear_model import LinearRegression
-#   from sklearn.metrics import mean_squared_error, r2_score
-#   import pandas as pd
-#   from sklearn.preprocessing import LabelEncoder
-#   import seaborn as sns
-#   import matplotlib.pyplot as plt
+
+
+# - - - - - - - - - - - PREDICTION - - - - - - - - - - -
+elif app_mode == "Prediction":
+  st.title("Prediction")
+  from sklearn.model_selection import train_test_split
+  from sklearn.linear_model import LinearRegression
+  from sklearn.metrics import mean_squared_error, r2_score
+  import pandas as pd
+  from sklearn.preprocessing import LabelEncoder
+  import seaborn as sns
+  import matplotlib.pyplot as plt
   
 #   # Assuming df is your DataFrame containing all variables
 #   # df = pd.read_csv("transactions_dataset.csv")
