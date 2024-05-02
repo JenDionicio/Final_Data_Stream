@@ -129,7 +129,7 @@ elif app_mode == "Visualization":
   # DF defenition
   tech_df = tech_df.sample(n=10000)
 
-  image_paths = ['bigger_pairplot.png', 'Annoted_bigger_sns.png.png', 'smaller_pairplot.png']
+  image_paths = ['bigger_pairplot.png', 'Annoted_bigger_sns.png', 'smaller_pairplot.png']
   messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
   
   # Initialize index for the selected image and message
