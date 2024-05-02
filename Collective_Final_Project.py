@@ -53,8 +53,13 @@ if app_mode == "Introduction":
       - Build model that solves business problem 
   """)
 
+  # - - - - - - - - - - - - - - - - - -
+
+  st.markdown("<br>  <!-- Empty line using HTML <br> tag -->")
+
+  st.markdown("### About the Data Set")
   
-  num = st.number_input('No. of Rows', 5, 10)
+  num = st.number_input('Data rows displayed', 5, 10)
 
   head = st.radio('View from top (head) or bottom (tail)', ('Head', 'Tail'))
   if head == 'Head':
@@ -62,8 +67,7 @@ if app_mode == "Introduction":
   else:
     st.dataframe(df.tail(num))
 
-  st.text('(Rows,Columns)')
-  st.write(df.shape)
+  st.text(f'This data frame has {df.shape[0]} Rows and {df.shape[1]} columns')
 
   st.markdown("##### Key Variables")
 
