@@ -95,7 +95,8 @@ if app_mode == "Introduction":
   # Display Missing Values Matrix in the second column
   with col2:
       st.write("Missing Values Matrix:")
-      fig, axplt.matrix(tech_df, figsize=(20, 6))
+      fig, ax = plt.subplots(figsize=(20, 6))
+      mno.matrix(tech_df, ax=ax)
       st.pyplot(fig)
   
   if total_miss <= 30:
