@@ -91,7 +91,7 @@ if app_mode == "Introduction":
   
   # Display Missing Values Matrix
   st.write("Missing Values Matrix:")
-  st.write(msno.matrix(tech_df, figsize=(20, 6)))
+  st.write(mno.matrix(tech_df, figsize=(20, 6)))
   if totalmiss <= 30:
     st.success("We have less then 30 percent of missing values, which is good. This provides us with more accurate data as the null values will not significantly affect the outcomes of our conclusions. And no bias will steer towards misleading results. ")
   else:
