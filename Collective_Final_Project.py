@@ -248,8 +248,7 @@ elif app_mode == "Prediction":
 # - - - - - - - - - - - - - - MLFLOW
   # Define columns
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio',
-          'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio', 'Composite_Score', 'ESG_PS_interaction',
-          'ESG_PB_interaction', 'PS_PB_interaction']
+          'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']
   
   # Filter dataframe based on selected columns
   temp_df = tech_df[cols]
