@@ -187,7 +187,7 @@ elif app_mode == "Visualization":
           tab1.image(image_paths[selected_index], use_column_width=True)
       
       # Clear the button placeholder after each iteration
-      holder.empty()
+      holder = holder.empty()
            
   
   # # Add a button to change the image and message
