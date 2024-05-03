@@ -159,7 +159,6 @@ elif app_mode == "Visualization":
 
   # - - - - - - - - - - - - - - -  TAB1
   # Define image paths and messages
-  # Define image paths and messages
   image_paths = ['bigger_pairplot.png', 'Annoted_bigger_sns.png', 'smaller_pairplot.png']
   messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
   
@@ -167,38 +166,26 @@ elif app_mode == "Visualization":
   selected_index = 0
   
   # Display the initial image and message
+  tab1 = st.sidebar
   tab1.title("PAIR PLOTS")
   tab1.write(messages[selected_index])
   tab1.image(image_paths[selected_index], use_column_width=True)
-
-  current_image_index = 0
-
-  def update_image():
-      global current_image_index
-      current_image_index = (current_image_index + 1) % len(image_paths)
-      tab1.image(image_paths[current_image_index])
-      tab1.write(messages[current_image_index])
   
   # Create a placeholder for the button
   holder = st.empty()
   
   # Loop until all images are displayed
   while selected_index < len(image_paths):
-      # Wait for space key press
-      event = tab1.beta_expander("").key_down("space")
-  
-      # Check if the space key is pressed
-      if event:
+      # Check if the button is clicked
+      if holder.button("Next Image?"):
           # Update the selected index
           selected_index = (selected_index + 1) % len(image_paths)
           
-          # Clear the previous image and message
+          # Display the next image and message
           tab1.write("\n\n")
+          tab1.write(messages[selected_index])
           tab1.image(image_paths[selected_index], use_column_width=True)
-      
-      # Clear the button placeholder after each iteration
-      holder.empty()
-  
+    
 
   
 
