@@ -30,7 +30,6 @@ tech_df = df.loc[df['sector'] == 'TECH']
 
 
 # - - - - - - - - - - - INTRODUCTION - - - - - - - - - - -
-
 if app_mode == "Introduction":
 
   st.title("Introduction")
@@ -111,7 +110,6 @@ if app_mode == "Introduction":
     st.markdown(" > Theoretically, 25 to 30 percent is the maximum missing values are allowed, there's no hard and fast rule to decide this threshold. It can vary from problem to problem.")
 
 # - - - - - - - - - - - VISUALIZATION - - - - - - - - - - -
-
 elif app_mode == "Visualization":
   data = {
     'ESG_ranking': tech_df['ESG_ranking'],
@@ -149,12 +147,12 @@ elif app_mode == "Visualization":
 
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio','Composite_Score',  'ESG_PS_interaction',  'ESG_PB_interaction',  'PS_PB_interaction' ] 
 
-  # - - - - - - - - - - - - Sns
+  # - - - - - - - - - - - - PAIRPLOT
   
   st.title("Visualization")
   
   # DATA VISUALISATION
-  tab1, tab2, tab3, tab4 = st.tabs(["Pair Plots", "Correlation Map", "Line Chart", "Pie Plot"])
+  tab1, tab2, tab3, tab4 = st.tabs(["Pair Plots", "Correlation", "Feature Engineering", ""])
 
   # DF defenition
   tech_df = tech_df.sample(n=10000)
@@ -197,30 +195,8 @@ elif app_mode == "Visualization":
   # Display the plot within the Streamlit app
   tab2.pyplot(fig2)
 
-  # - - - - - - - - - - - - - - TAB 3
-  tab3.title('Differences of ESG Rankings')
-
-  # Grouping based on condition
-  high_rank = tech_df.groupby(tech_df['ESG_ranking'] > tech_df['ESG_ranking'].mean())
-
-  # Get the group with ESG_ranking greater than the mean
-  high_rank_group = high_rank.get_group(True)
-
-  # Display summary statistics for the group
-  tab3.subheader("Summary statistics for high ESG ranking group:")
-  tab3.write(high_rank_group.describe())
-
-  # Get the group with ESG_ranking less than or equal to the mean
-  low_rank_group = high_rank.get_group(False)
-
-  # Display summary statistics for the group
-  tab3.subheader("Summary statistics for low ESG ranking group:")
-  tab3.write(low_rank_group.describe())
-
-  
-  # - - - - - - - - - - - - - - TAB 4
-  # Histograms
-  st.subheader('Histograms')
+    # Histograms
+  tab2.subheader('Histograms')
   
   # Create subplots
   fig, axes = plt.subplots(2, 2, figsize=(12, 8))
@@ -242,12 +218,53 @@ elif app_mode == "Visualization":
   plt.tight_layout()
   
   # Display the plot in Streamlit
+  tab2.pyplot(fig)
+
+   # Create subplots
+  fig, axes = plt.subplots(2, 4, figsize=(16, 8))
+  
+  # Plot bar charts
+  sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[0, 0])
+  axes[0, 0].set_title('Average stock sell by Group')
+  
+  sns.barplot(x='ESG_ranking', y='expected_return (yearly)', data=tech_df, ax=axes[0, 1])
+  axes[0, 1].set_title('Average returns by Group')
+  
+  sns.barplot(x='ESG_ranking', y='NetProfitMargin_ratio', data=tech_df, ax=axes[0, 2])
+  axes[0, 2].set_title('Average profits by Group')
+  
+  sns.barplot(x='ESG_ranking', y='Volatility_Buy', data=tech_df, ax=axes[0, 3])  # Swapped 'Volatility_Buy' with 'Volatility_sell'
+  axes[0, 3].set_title('Average stock buy by Group')
+  
+  # Adjust layout
+  plt.tight_layout()
+  
+  # Display the plot in Streamlit
   st.pyplot(fig)
 
-  # - - - - - - - - - - - - - - TAB 5
+  tab2.subtitle('Differences of ESG Rankings')
+
+  # Grouping based on condition
+  high_rank = tech_df.groupby(tech_df['ESG_ranking'] > tech_df['ESG_ranking'].mean())
+
+  # Get the group with ESG_ranking greater than the mean
+  high_rank_group = high_rank.get_group(True)
+
+  # Display summary statistics for the group
+  tab2.subheader("Summary statistics for high ESG ranking group:")
+  tab2.write(high_rank_group.describe())
+
+  # Get the group with ESG_ranking less than or equal to the mean
+  low_rank_group = high_rank.get_group(False)
+
+  # Display summary statistics for the group
+  tab2.subheader("Summary statistics for low ESG ranking group:")
+  tab2.write(low_rank_group.describe())
   
+  # - - - - - - - - - - - - - - TAB 4
+
   # Box Plots
-  st.subheader('Box Plots')
+  tab3.subheader('Box Plots')
   
   # Create subplots
   fig, axes = plt.subplots(1, 4, figsize=(12, 6))
@@ -269,7 +286,7 @@ elif app_mode == "Visualization":
   plt.tight_layout()
   
   # Display the plot in Streamlit
-  st.pyplot(fig)
+  tab3.pyplot(fig)
 
   # - - - - - - - - - - - - - - TAB 5
   
@@ -298,29 +315,7 @@ elif app_mode == "Visualization":
   # Display the plot in Streamlit
   st.pyplot(fig)
   
-  
-  # Create subplots
-  fig, axes = plt.subplots(2, 4, figsize=(16, 8))
-  
-  # Plot bar charts
-  sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[0, 0])
-  axes[0, 0].set_title('Average stock sell by Group')
-  
-  sns.barplot(x='ESG_ranking', y='expected_return (yearly)', data=tech_df, ax=axes[0, 1])
-  axes[0, 1].set_title('Average returns by Group')
-  
-  sns.barplot(x='ESG_ranking', y='NetProfitMargin_ratio', data=tech_df, ax=axes[0, 2])
-  axes[0, 2].set_title('Average profits by Group')
-  
-  sns.barplot(x='ESG_ranking', y='Volatility_Buy', data=tech_df, ax=axes[0, 3])  # Swapped 'Volatility_Buy' with 'Volatility_sell'
-  axes[0, 3].set_title('Average stock buy by Group')
-  
-  # Adjust layout
-  plt.tight_layout()
-  
-  # Display the plot in Streamlit
-  st.pyplot(fig)
-  
+ 
   
 
 
