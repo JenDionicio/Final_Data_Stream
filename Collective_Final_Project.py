@@ -171,35 +171,18 @@ elif app_mode == "Visualization":
   tab1.title("PAIR PLOTS")
   tab1.write(messages[selected_index])
   tab1.image(image_paths[selected_index], use_column_width=True)
-  
-  # Create a placeholder for the button
-  holder = st.empty()
-  
-  # Loop until all images are displayed
-  while selected_index < len(image_paths):
-      # Check if the button is clicked
-      if holder.button("Next Image?"):
-          # Update the selected index
-          selected_index = (selected_index + 1) % len(image_paths)
-          
-          # Clear the previous image and message
-          tab1.write("\n\n")
-          tab1.image(image_paths[selected_index], use_column_width=True)
-      
-      # Clear the button placeholder after each iteration
-      holder = holder.empty()
-           
-  
-  # # Add a button to change the image and message
-  # if tab1.button("Next Image?"):
-  #     # Increment the index to get the next image and message
-  #     selected_index = (selected_index + 1) % len(image_paths)
-  #     # Clear the previous image and message
-  #     tab1.write("")
-  #     # Display the next message
-  #     tab1.write(messages[selected_index])
-  #     # Display the next image
-  #     tab1.image(image_paths[selected_index], use_column_width=True)
+    
+  # Add a button to change the image and message
+  if tab1.button("Next Image?"):
+      # Increment the index to get the next image and message
+      selected_index = (selected_index + 1) % len(image_paths)
+      selected_index += 1
+      # Clear the previous image and message
+      tab1.write("")
+      # Display the next message
+      tab1.write(messages[selected_index])
+      # Display the next image
+      tab1.image(image_paths[selected_index], use_column_width=True)
   
   # - - - - - - - - - - - - - - TAB 2
   # HEAT MAP
