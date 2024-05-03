@@ -166,7 +166,6 @@ elif app_mode == "Visualization":
   selected_index = 1
   
   # Display the initial image and message
-  tab1 = st.sidebar
   tab1.title("PAIR PLOTS")
   tab1.write(messages[0])
   tab1.image(image_paths[0], use_column_width=True)
