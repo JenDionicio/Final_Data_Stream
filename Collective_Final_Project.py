@@ -170,21 +170,14 @@ elif app_mode == "Visualization":
   tab1.title("PAIR PLOTS")
   tab1.write(messages[selected_index])
   tab1.image(image_paths[selected_index], use_column_width=True)
-  
-  # Create a placeholder for the button
-  holder = st.empty()
-  
-  # Loop until all images are displayed
-  while selected_index < len(image_paths):
-      # Check if the button is clicked
-      if holder.button("Next Image?"):
-          # Update the selected index
-          selected_index = (selected_index + 1) % len(image_paths)
-          
-          # Display the next image and message
-          tab1.write("\n\n")
-          tab1.write(messages[selected_index])
-          tab1.image(image_paths[selected_index], use_column_width=True)
+  cnt = 0
+  for image in image_paths:
+      if(st.button('Next Image', key=f'{count}_{cnt}')):
+        tab1.write("\n\n")
+        tab1.write(messages[cnt])
+        tab1.image(image_paths[cnt], use_column_width=True)
+        cnt+=1
+        
     
 
   
