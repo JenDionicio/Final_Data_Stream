@@ -221,26 +221,26 @@ elif app_mode == "Visualization":
   tab2.pyplot(fig)
 
    # -- BAR PLOTS --
-  fig, axes = plt.subplots(2, 4, figsize=(16, 8))
+  fig, axes = plt.subplots(1, 4, figsize=(16, 8))
   
   # Plot bar charts
-  sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[0, 0])
+  sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[0])
   axes[0].set_title('Average stock sell by Group')
   
-  sns.barplot(x='ESG_ranking', y='expected_return (yearly)', data=tech_df, ax=axes[0, 1])
+  sns.barplot(x='ESG_ranking', y='expected_return (yearly)', data=tech_df, ax=axes[1])
   axes[1].set_title('Average returns by Group')
   
-  sns.barplot(x='ESG_ranking', y='NetProfitMargin_ratio', data=tech_df, ax=axes[0, 2])
+  sns.barplot(x='ESG_ranking', y='NetProfitMargin_ratio', data=tech_df, ax=axes[2])
   axes[2].set_title('Average profits by Group')
   
-  sns.barplot(x='ESG_ranking', y='Volatility_Buy', data=tech_df, ax=axes[0, 3])  # Swapped 'Volatility_Buy' with 'Volatility_sell'
+  sns.barplot(x='ESG_ranking', y='Volatility_Buy', data=tech_df, ax=axes[3])  # Swapped 'Volatility_Buy' with 'Volatility_sell'
   axes[3].set_title('Average stock buy by Group')
   
   # Adjust layout
   plt.tight_layout()
   
   # Display the plot in Streamlit
-  tab2.pyplot(fig)
+  st.pyplot(fig)
 
 
   # -- DESCRIBE TABLES -- 
