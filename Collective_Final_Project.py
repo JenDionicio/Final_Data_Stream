@@ -180,9 +180,19 @@ elif app_mode == "Visualization":
       tab1.write(messages[current_image_index])
   
   button = tab1.button("Next Image")
+
+  # while(not button):
+  #   #update image
+  #   if button:
+  #     button = False
+    
+  
   tab1.markdown(button)
   if button:
     tab1.markdown(button)
+    button = False
+    tab1.markdown(button)
+  
 
   
 
