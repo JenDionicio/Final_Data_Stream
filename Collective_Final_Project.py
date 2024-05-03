@@ -184,7 +184,7 @@ elif app_mode == "Visualization":
   # - - - - - - - - - - - - - - TAB 2
 
   tab2.title('Variable Correlation')
-  tab2.markdown("## 'ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'")
+  tab2.markdown("#### 'ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'")
 
   # HEAT MAP
   tab2.markdown('### Heatmap Correlation')
