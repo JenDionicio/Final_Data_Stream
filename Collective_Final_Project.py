@@ -152,7 +152,7 @@ elif app_mode == "Visualization":
   st.title("Visualization")
   
   # DATA VISUALISATION
-  tab1, tab2, tab3, tab4 = st.tabs(["Pair Plots", "Correlation", "Feature Engineering", ""])
+  tab1, tab2, tab3, tab4 = st.tabs(["Pair Plots", "Correlation", "Feature Engineering"])
 
   # DF defenition
   tech_df = tech_df.sample(n=10000)
@@ -264,7 +264,7 @@ elif app_mode == "Visualization":
   tab2.write(low_rank_group.describe())
 
     # Bar Charts
-  st.subheader('Bar Charts')
+  tab2.subheader('Bar Charts')
   
   # Create subplots
   fig, axes = plt.subplots(1, 4, figsize=(12, 6))
