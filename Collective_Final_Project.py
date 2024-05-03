@@ -240,7 +240,7 @@ elif app_mode == "Visualization":
   plt.tight_layout()
   
   # Display the plot in Streamlit
-  st.pyplot(fig)
+  tab2.pyplot(fig)
 
 
   # -- DESCRIBE TABLES -- 
