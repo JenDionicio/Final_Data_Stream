@@ -221,7 +221,7 @@ elif app_mode == "Visualization":
   tab2.pyplot(fig)
 
    # Create subplots
-  fig, axes = plt.subplots(2, 4, figsize=(12, 6))
+  fig, axes = plt.subplots(2, 4, figsize=(16, 8))
   
   # Plot bar charts
   sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[0, 0])
