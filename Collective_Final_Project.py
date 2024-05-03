@@ -291,6 +291,31 @@ elif app_mode == "Visualization":
   
   # Display the plot in Streamlit
   tab2.pyplot(fig)
+
+   # Box Plots
+  tab2.subheader('Box Plots')
+  
+  # Create subplots
+  fig, axes = plt.subplots(1, 4, figsize=(12, 6))
+  
+  # Plot box plots
+  sns.boxplot(y='ESG_ranking', data=tech_df, ax=axes[0])
+  axes[0].set_title('Box Plot of ESG Ranking')
+  
+  sns.boxplot(y='PS_ratio', data=tech_df, ax=axes[1])
+  axes[1].set_title('Box Plot of PS Ratio')
+  
+  sns.boxplot(y='PB_ratio', data=tech_df, ax=axes[2])
+  axes[2].set_title('Box Plot of PB Ratio')
+  
+  sns.boxplot(y='roa_ratio', data=tech_df, ax=axes[3])
+  axes[3].set_title('Box Plot of ROA Ratio')
+  
+  # Adjust layout
+  plt.tight_layout()
+  
+  # Display the plot in Streamlit
+  tab2.pyplot(fig)
   
   
   # - - - - - - - - - - - - - - TAB 3
@@ -313,42 +338,13 @@ elif app_mode == "Visualization":
     """
   )
 
-  # Box Plots
-  tab3.subheader('Box Plots')
-  
-  # Create subplots
-  fig, axes = plt.subplots(1, 4, figsize=(12, 6))
-  
-  # Plot box plots
-  sns.boxplot(y='ESG_ranking', data=tech_df, ax=axes[0])
-  axes[0].set_title('Box Plot of ESG Ranking')
-  
-  sns.boxplot(y='PS_ratio', data=tech_df, ax=axes[1])
-  axes[1].set_title('Box Plot of PS Ratio')
-  
-  sns.boxplot(y='PB_ratio', data=tech_df, ax=axes[2])
-  axes[2].set_title('Box Plot of PB Ratio')
-  
-  sns.boxplot(y='roa_ratio', data=tech_df, ax=axes[3])
-  axes[3].set_title('Box Plot of ROA Ratio')
-  
-  # Adjust layout
-  plt.tight_layout()
-  
-  # Display the plot in Streamlit
-  tab3.pyplot(fig)
-
   # -- new table -- 
   tab3.write(tech_df)
   
-
 # - - - - - - - - - - - PREDICTION - - - - - - - - - - -
 elif app_mode == "Prediction":
-  st.title("Prediction")
+  st.title("Predictions")
   
-  # Assuming df is your DataFrame containing all variables
-  # df = pd.read_csv("transactions_dataset.csv")
-  #variables = df.columns
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
   temp_df = df[cols]
   # Get list of all variable names
@@ -356,7 +352,6 @@ elif app_mode == "Prediction":
   for name in list(cols):
     temp_df[name] = label_encoder.fit_transform(temp_df[name])
   
-  #for target_variable in variables
   # Select the target variable for prediction
   y = temp_df['NetProfitMargin_ratio']
 
@@ -375,7 +370,7 @@ elif app_mode == "Prediction":
   results_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
   
   # Display the subheader
-  st.subheader('Actual vs. Predicted for Net Profit Margin ratio')
+  st.subheader('Actual vs. Predicted for Net Profit Margin ratio (Linear Regression)')
   
   # Create a new Matplotlib figure and axis
   fig, ax = plt.subplots()
@@ -392,10 +387,9 @@ elif app_mode == "Prediction":
   # Display the plot within the Streamlit app
   st.pyplot(fig)
 
-  # - - - - - - - - - - - - - - TAB 3
-
-
 # - - - - - - - - - - - - - - DECISION TREE REGRESSOR
+  st.subheader('Decision Tree Regressor')
+
   # Define columns
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation', 'PS_ratio', 'NetProfitMargin_ratio',
           'PB_ratio', 'roa_ratio', 'roe_ratio', 'EPS_ratio']
@@ -431,6 +425,7 @@ elif app_mode == "Prediction":
   st.graphviz_chart(export_graphviz(clf, out_file=None, feature_names=X.columns, filled=True, rounded=True))
 
   # - - - - - - - - - - - - - - - - - PYCARET
+  st.subheader('Pycaret Setup')
 
   data = {
     'Description': ['Session id', 'Target', 'Target type', 'Original data shape', 'Transformed data shape',
@@ -448,7 +443,9 @@ elif app_mode == "Prediction":
   # Display DataFrame as a table
   st.table(df)
 
-  
+
+  st.subheader('Best Models - Pycaret/MLFlow')
+
   # Create a DataFrame from the given data
   data = {
       'Model': ['knn', 'rf', 'et', 'lightgbm', 'xgboost', 'dt', 'gbr', 'ada', 'br', 'ridge',
@@ -481,6 +478,7 @@ elif app_mode == "Prediction":
   st.table(df)
 
   # - - - - - - - - - - - - - 
+  st.subheader('Feature Importance')
   st.image('newplot.png')
   
 
