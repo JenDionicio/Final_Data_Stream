@@ -179,23 +179,25 @@ elif app_mode == "Visualization":
       tab1.image(image_paths[current_image_index])
       tab1.write(messages[current_image_index])
   
-  button = tab1.button("Next Image")
-
-  # while(not button):
-  #   #update image
-  #   if button:
-  #     button = False
-    
+  # Create a placeholder for the button
+  holder = st.empty()
   
-  tab1.markdown(button)
-  if button:
-    tab1.markdown(button)
-    button = False
-    tab1.markdown(button)
-    button
-    if button:
-      # tab1.button("Next Image")
-      tab1.markdown(button)
+  # Loop until all images are displayed
+  while selected_index < len(image_paths):
+      # Wait for space key press
+      event = tab1.beta_expander("").key_down("space")
+  
+      # Check if the space key is pressed
+      if event:
+          # Update the selected index
+          selected_index = (selected_index + 1) % len(image_paths)
+          
+          # Clear the previous image and message
+          tab1.write("\n\n")
+          tab1.image(image_paths[selected_index], use_column_width=True)
+      
+      # Clear the button placeholder after each iteration
+      holder.empty()
   
 
   
