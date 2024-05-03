@@ -176,11 +176,11 @@ elif app_mode == "Visualization":
       st.image(image_paths[current_image_index])
       st.write(messages[current_image_index])
   
-  button = st.button("Next Image")
+  button = tab1.button("Pair plot 2")
   
   if button:
       update_image()
-      button2 = st.button("Next Image")
+      button2 = tab1.button("Pair plot 3")
       if button2:
         update_image()
       
