@@ -176,10 +176,15 @@ elif app_mode == "Visualization":
   def update_image():
       global current_image_index
       current_image_index = (current_image_index + 1) % len(image_paths)
-      st.image(image_paths[current_image_index])
-      st.write(messages[current_image_index])
+      tab1.image(image_paths[current_image_index])
+      tab1.write(messages[current_image_index])
   
   button = tab1.button("Next Image")
+  tab1.markdown(button)
+  if button:
+    tab1.mardown(button)
+
+  
 
 
     
