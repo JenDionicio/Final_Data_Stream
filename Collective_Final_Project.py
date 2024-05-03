@@ -163,37 +163,25 @@ elif app_mode == "Visualization":
   messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
   
   # Initialize index for the selected image and message
-  selected_index = 0
+  selected_index = 1
   
   # Display the initial image and message
   tab1 = st.sidebar
   tab1.title("PAIR PLOTS")
-  tab1.write(messages[selected_index])
-  tab1.image(image_paths[selected_index], use_column_width=True)
-  for i in range(len(messages)):
-    button = st.button(messages[i])
-    if(button):
-      tab1.write("\n\n")
-      tab1.write(messages[i])
-      tab1.image(image_paths[i], use_column_width=True)
-        
-    
-
-  
-
-
-    
-  # # Add a button to change the image and message
-  # if tab1.button("Next Image?"):
-  #     # Increment the index to get the next image and message
-  #     selected_index = (selected_index + 1) % len(image_paths)
-  #     selected_index += 1
-  #     # Clear the previous image and message
-  #     tab1.write("")
-  #     # Display the next message
-  #     tab1.write(messages[selected_index])
-  #     # Display the next image
-  #     tab1.image(image_paths[selected_index], use_column_width=True)
+  tab1.write(messages[0])
+  tab1.image(image_paths[0], use_column_width=True)
+      
+  # Add a button to change the image and message
+  if tab1.button("Next Image?"):
+      # Increment the index to get the next image and message
+      selected_index = (selected_index + 1) % len(image_paths)
+      selected_index += 1
+      # Clear the previous image and message
+      tab1.write("")
+      # Display the next message
+      tab1.write(messages[selected_index])
+      # Display the next image
+      tab1.image(image_paths[selected_index], use_column_width=True)
   
   # - - - - - - - - - - - - - - TAB 2
   # HEAT MAP
