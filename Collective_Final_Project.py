@@ -170,18 +170,32 @@ elif app_mode == "Visualization":
   tab1.title("PAIR PLOTS")
   tab1.write(messages[selected_index])
   tab1.image(image_paths[selected_index], use_column_width=True)
+
+  current_image_index = 0
+
+  def update_image():
+      global current_image_index
+      current_image_index = (current_image_index + 1) % len(image_paths)
+      st.image(image_paths[current_image_index])
+      st.write(messages[current_image_index])
+  
+  st.write("Click the button to display the images and messages.")
+  button = st.button("Next Image")
+  
+  if button:
+      update_image()
     
-  # Add a button to change the image and message
-  if tab1.button("Next Image?"):
-      # Increment the index to get the next image and message
-      selected_index = (selected_index + 1) % len(image_paths)
-      selected_index += 1
-      # Clear the previous image and message
-      tab1.write("")
-      # Display the next message
-      tab1.write(messages[selected_index])
-      # Display the next image
-      tab1.image(image_paths[selected_index], use_column_width=True)
+  # # Add a button to change the image and message
+  # if tab1.button("Next Image?"):
+  #     # Increment the index to get the next image and message
+  #     selected_index = (selected_index + 1) % len(image_paths)
+  #     selected_index += 1
+  #     # Clear the previous image and message
+  #     tab1.write("")
+  #     # Display the next message
+  #     tab1.write(messages[selected_index])
+  #     # Display the next image
+  #     tab1.image(image_paths[selected_index], use_column_width=True)
   
   # - - - - - - - - - - - - - - TAB 2
   # HEAT MAP
