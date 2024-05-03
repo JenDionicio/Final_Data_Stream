@@ -176,7 +176,7 @@ elif app_mode == "Visualization":
   def update_image():
       global current_image_index
       current_image_index = (current_image_index + 1) % len(image_paths)
-      current_image +=1
+      current_image_index +=1
       st.image(image_paths[current_image_index])
       st.write(messages[current_image_index])
   
