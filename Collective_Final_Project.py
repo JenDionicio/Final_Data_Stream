@@ -159,28 +159,21 @@ elif app_mode == "Visualization":
 
   # - - - - - - - - - - - - - - -  TAB1
   image_paths = ['bigger_pairplot.png', 'Annoted_bigger_sns.png', 'smaller_pairplot.png']
-  messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
+  messages = ["#### All variable pairplot", "#### Notable Relationships", "#### Focus Point Variables"]
   
   # Display the initial image and message
   tab1.title("PAIR PLOTS")
   tab1.write(messages[0])
   tab1.image(image_paths[0], use_column_width=True)
   
-  current_image_index = 0
-  
-  def update_image():
-      global current_image_index
-      current_image_index = current_image_index + 1
-      tab1.image(image_paths[current_image_index], use_column_width=True)
-      tab1.write(messages[current_image_index])
-  
   button = tab1.button("Next Pair Plot")
   if button:
-      update_image()
-  tab1.markdown(current_image_index)
+    tab1.write(messages[1])
+    tab1.image(image_paths[1], use_column_width=True)
   button2 = tab1.button('Next Pair Plot ')
   if button2:
-      update_image()
+    tab1.write(messages[2])
+    tab1.image(image_paths[2], use_column_width=True)
 
   
   # - - - - - - - - - - - - - - TAB 2
