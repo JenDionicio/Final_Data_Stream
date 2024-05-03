@@ -183,9 +183,9 @@ elif app_mode == "Visualization":
   
   if button:
       update_image()
-    button2 = st.button("Next Image")
-    if button2:
-      update_image()
+      button2 = st.button("Next Image")
+      if button2:
+        update_image()
     
   # # Add a button to change the image and message
   # if tab1.button("Next Image?"):
