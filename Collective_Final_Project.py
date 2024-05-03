@@ -168,7 +168,7 @@ elif app_mode == "Visualization":
   tab1.write(messages[0])
   tab1.image(image_paths[0], use_column_width=True)
       
-  current_image_index = 1
+  current_image_index = 0
   
   def update_image():
       global current_image_index
