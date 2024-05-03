@@ -172,7 +172,7 @@ elif app_mode == "Visualization":
   tab1.image(image_paths[selected_index], use_column_width=True)
   cnt = 0
   for image in image_paths:
-      if(st.button('Next Image', key=f'{count}_{cnt}')):
+      if(st.button('Next Image', key=f'{cnt}_{cnt}')):
         tab1.write("\n\n")
         tab1.write(messages[cnt])
         tab1.image(image_paths[cnt], use_column_width=True)
