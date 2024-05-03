@@ -170,7 +170,7 @@ elif app_mode == "Visualization":
   if button:
     tab1.write(messages[1])
     tab1.image(image_paths[1], use_column_width=True)
-    button2 = tab1.button('Next Pair Plot ')
+  button2 = tab1.button('Next Pair Plot ')
   if button2:
     tab1.write(messages[2])
     tab1.image(image_paths[2], use_column_width=True)
