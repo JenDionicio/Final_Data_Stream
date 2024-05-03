@@ -177,14 +177,14 @@ elif app_mode == "Visualization":
 
   var = tab1.button('Variables')
   if var:
-    tab1.markdown("## 'ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'")
+    tab1.markdown("##### 'ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'")
 
 
   
   # - - - - - - - - - - - - - - TAB 2
 
   tab2.title('Variable Correlation')
-  tab2.markdown("#### 'ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'")
+  tab2.markdown("##### 'ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'")
 
   # HEAT MAP
   tab2.markdown('### Heatmap Correlation')
@@ -198,6 +198,27 @@ elif app_mode == "Visualization":
   
   # Display the plot within the Streamlit app
   tab2.pyplot(fig2)
+
+  
+  # -- DESCRIBE TABLES -- 
+  tab2.markdown('Differences of ESG Rankings')
+
+  # Grouping based on condition
+  high_rank = tech_df.groupby(tech_df['ESG_ranking'] > tech_df['ESG_ranking'].mean())
+
+  # Get the group with ESG_ranking greater than the mean
+  high_rank_group = high_rank.get_group(True)
+
+  # Display summary statistics for the group
+  tab2.subheader("Summary statistics for high ESG ranking group:")
+  tab2.write(high_rank_group.describe())
+
+  # Get the group with ESG_ranking less than or equal to the mean
+  low_rank_group = high_rank.get_group(False)
+
+  # Display summary statistics for the group
+  tab2.subheader("Summary statistics for low ESG ranking group:")
+  tab2.write(low_rank_group.describe())
 
   # --  HISTOGRAMS --
   tab2.subheader('Histograms')
@@ -245,27 +266,6 @@ elif app_mode == "Visualization":
   
   # Display the plot in Streamlit
   tab2.pyplot(fig)
-
-
-  # -- DESCRIBE TABLES -- 
-  tab2.markdown('Differences of ESG Rankings')
-
-  # Grouping based on condition
-  high_rank = tech_df.groupby(tech_df['ESG_ranking'] > tech_df['ESG_ranking'].mean())
-
-  # Get the group with ESG_ranking greater than the mean
-  high_rank_group = high_rank.get_group(True)
-
-  # Display summary statistics for the group
-  tab2.subheader("Summary statistics for high ESG ranking group:")
-  tab2.write(high_rank_group.describe())
-
-  # Get the group with ESG_ranking less than or equal to the mean
-  low_rank_group = high_rank.get_group(False)
-
-  # Display summary statistics for the group
-  tab2.subheader("Summary statistics for low ESG ranking group:")
-  tab2.write(low_rank_group.describe())
 
     # Bar Charts
   tab2.subheader('Bar Charts')
