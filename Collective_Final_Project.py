@@ -220,21 +220,21 @@ elif app_mode == "Visualization":
   # Display the plot in Streamlit
   tab2.pyplot(fig)
 
-   # Create subplots
+   # -- BAR PLOTS --
   fig, axes = plt.subplots(2, 4, figsize=(16, 8))
   
   # Plot bar charts
   sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[0, 0])
-  axes[0, 0].set_title('Average stock sell by Group')
+  axes[0].set_title('Average stock sell by Group')
   
   sns.barplot(x='ESG_ranking', y='expected_return (yearly)', data=tech_df, ax=axes[0, 1])
-  axes[0, 1].set_title('Average returns by Group')
+  axes[1].set_title('Average returns by Group')
   
   sns.barplot(x='ESG_ranking', y='NetProfitMargin_ratio', data=tech_df, ax=axes[0, 2])
-  axes[0, 2].set_title('Average profits by Group')
+  axes[2].set_title('Average profits by Group')
   
   sns.barplot(x='ESG_ranking', y='Volatility_Buy', data=tech_df, ax=axes[0, 3])  # Swapped 'Volatility_Buy' with 'Volatility_sell'
-  axes[0, 3].set_title('Average stock buy by Group')
+  axes[3].set_title('Average stock buy by Group')
   
   # Adjust layout
   plt.tight_layout()
@@ -243,6 +243,7 @@ elif app_mode == "Visualization":
   tab2.pyplot(fig)
 
 
+  # -- DESCRIBE TABLES -- 
   tab2.markdown('Differences of ESG Rankings')
 
   # Grouping based on condition
