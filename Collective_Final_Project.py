@@ -192,6 +192,8 @@ elif app_mode == "Visualization":
     tab1.markdown(button)
     button = False
     tab1.markdown(button)
+    if button:
+      tab1.markdown(button)
   
 
   
