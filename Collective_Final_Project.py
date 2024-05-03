@@ -175,10 +175,19 @@ elif app_mode == "Visualization":
     tab1.write(messages[2])
     tab1.image(image_paths[2], use_column_width=True)
 
+  var = tab1.button('Variables')
+  if var:
+    tab1.markdown("## 'ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'")
+
+
   
   # - - - - - - - - - - - - - - TAB 2
+
+  tab2.title('Variable Correlation')
+  tab2.markdown("## 'ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'")
+
   # HEAT MAP
-  tab2.title('Heatmap Correlation')
+  tab2.markdown('### Heatmap Correlation')
   
   # heat map code
   cols = ['ESG_ranking', 'Volatility_Buy',  'Sharpe Ratio', 'inflation','PS_ratio','NetProfitMargin_ratio', 'PB_ratio', 'roa_ratio', 'roe_ratio','EPS_ratio'] # possible essential columns
