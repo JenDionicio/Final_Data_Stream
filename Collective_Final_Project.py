@@ -174,7 +174,6 @@ elif app_mode == "Visualization":
   if tab1.button("Next Image?"):
       # Increment the index to get the next image and message
       selected_index = (selected_index + 1) % len(image_paths)
-      selected_index += 1
       # Clear the previous image and message
       tab1.write("")
       # Display the next message
