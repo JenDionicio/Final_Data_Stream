@@ -182,7 +182,7 @@ elif app_mode == "Visualization":
   button = tab1.button("Next Image")
   tab1.markdown(button)
   if button:
-    tab1.mardown(button)
+    tab1.markdown(button)
 
   
 
