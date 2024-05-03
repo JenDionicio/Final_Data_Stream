@@ -158,32 +158,26 @@ elif app_mode == "Visualization":
   tech_df = tech_df.sample(n=10000)
 
   # - - - - - - - - - - - - - - -  TAB1
-  # Define image paths and messages
   image_paths = ['bigger_pairplot.png', 'Annoted_bigger_sns.png', 'smaller_pairplot.png']
   messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
   
-
   # Display the initial image and message
   tab1.title("PAIR PLOTS")
   tab1.write(messages[0])
   tab1.image(image_paths[0], use_column_width=True)
-      
+  
   current_image_index = 0
   
   def update_image():
       global current_image_index
       current_image_index = (current_image_index + 1) % len(image_paths)
-      st.image(image_paths[current_image_index])
-      st.write(messages[current_image_index])
+      tab1.image(image_paths[current_image_index], use_column_width=True)
+      tab1.write(messages[current_image_index])
   
-  button = tab1.button("Pair plot 2")
-  
+  button = tab1.button("Next Pair Plot")
   if button:
       update_image()
-      button2 = tab1.button("Pair plot 3")
-      if button2:
-        update_image()
-      
+
   
   # - - - - - - - - - - - - - - TAB 2
   # HEAT MAP
