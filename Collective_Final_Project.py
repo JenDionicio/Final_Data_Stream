@@ -179,10 +179,12 @@ elif app_mode == "Visualization":
       st.image(image_paths[current_image_index])
       st.write(messages[current_image_index])
   
-  st.write("Click the button to display the images and messages.")
   button = st.button("Next Image")
   
   if button:
+      update_image()
+    button2 = st.button("Next Image")
+    if button2:
       update_image()
     
   # # Add a button to change the image and message
