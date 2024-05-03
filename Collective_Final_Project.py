@@ -152,7 +152,7 @@ elif app_mode == "Visualization":
   st.title("Visualization")
   
   # DATA VISUALISATION
-  tab1, tab2, tab3, tab4 = st.tabs(["Pair Plots", "Correlation", "Feature Engineering"])
+  tab1, tab2, tab3 = st.tabs(["Pair Plots", "Correlation", "Feature Engineering"])
 
   # DF defenition
   tech_df = tech_df.sample(n=10000)
