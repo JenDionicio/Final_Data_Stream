@@ -159,27 +159,36 @@ elif app_mode == "Visualization":
 
   # - - - - - - - - - - - - - - -  TAB1
   # Define image paths and messages
+  # Define image paths and messages
   image_paths = ['bigger_pairplot.png', 'Annoted_bigger_sns.png', 'smaller_pairplot.png']
   messages = ["All variable pairplot", "Notable Relationships", "Focus Point Variables"]
   
   # Initialize index for the selected image and message
   selected_index = 0
   
-  # Define a boolean variable to track whether the button has been clicked
+  # Display the initial image and message
+  tab1 = st.sidebar
   tab1.title("PAIR PLOTS")
   tab1.write(messages[selected_index])
   tab1.image(image_paths[selected_index], use_column_width=True)
-
-  cond = False 
+  
+  # Create a placeholder for the button
   holder = st.empty()
-  while selected_index != len(image_paths):
-    if holder.button("Next Images?"):
-      selected_index = (selected_index+1)%len(image_paths)
-      tab1.write("\n\n")
-      tab1.image(image_paths[selected_index], use_column_width=True)
-    holder.empty()
+  
+  # Loop until all images are displayed
+  while selected_index < len(image_paths):
+      # Check if the button is clicked
+      if holder.button("Next Image?"):
+          # Update the selected index
+          selected_index = (selected_index + 1) % len(image_paths)
+          
+          # Clear the previous image and message
+          tab1.write("\n\n")
+          tab1.image(image_paths[selected_index], use_column_width=True)
       
-      
+      # Clear the button placeholder after each iteration
+      holder.empty()
+           
   
   # # Add a button to change the image and message
   # if tab1.button("Next Image?"):
