@@ -177,6 +177,10 @@ elif app_mode == "Visualization":
   button = tab1.button("Next Pair Plot")
   if button:
       update_image()
+  tab1.markdown(current_image_index)
+  button2 = tab1.button('Next Pair Plot ')
+  if button2:
+      update_image()
 
   
   # - - - - - - - - - - - - - - TAB 2
