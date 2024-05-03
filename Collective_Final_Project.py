@@ -262,8 +262,34 @@ elif app_mode == "Visualization":
   # Display summary statistics for the group
   tab2.subheader("Summary statistics for low ESG ranking group:")
   tab2.write(low_rank_group.describe())
+
+    # Bar Charts
+  st.subheader('Bar Charts')
   
-  # - - - - - - - - - - - - - - TAB 4
+  # Create subplots
+  fig, axes = plt.subplots(1, 4, figsize=(12, 6))
+  
+  # Plot bar charts
+  sns.barplot(x='ESG_ranking', y='PS_ratio', data=tech_df, ax=axes[0])
+  axes[0].set_title('Average PS Ratio by Group')
+  
+  sns.barplot(x='ESG_ranking', y='PB_ratio', data=tech_df, ax=axes[1])
+  axes[1].set_title('Average PB Ratio by Group')
+  
+  sns.barplot(x='ESG_ranking', y='roa_ratio', data=tech_df, ax=axes[2])
+  axes[2].set_title('Average ROA Ratio by Group')
+  
+  sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[3])  # Swapped 'Volatility_Buy' with 'Volatility_sell'
+  axes[3].set_title('Average stock sell by Group')
+  
+  # Adjust layout
+  plt.tight_layout()
+  
+  # Display the plot in Streamlit
+  tab2.pyplot(fig)
+  
+  
+  # - - - - - - - - - - - - - - TAB 3
 
   # Box Plots
   tab3.subheader('Box Plots')
@@ -290,36 +316,7 @@ elif app_mode == "Visualization":
   # Display the plot in Streamlit
   tab3.pyplot(fig)
 
-  # - - - - - - - - - - - - - - TAB 5
   
-  # Bar Charts
-  st.subheader('Bar Charts')
-  
-  # Create subplots
-  fig, axes = plt.subplots(1, 4, figsize=(12, 6))
-  
-  # Plot bar charts
-  sns.barplot(x='ESG_ranking', y='PS_ratio', data=tech_df, ax=axes[0])
-  axes[0].set_title('Average PS Ratio by Group')
-  
-  sns.barplot(x='ESG_ranking', y='PB_ratio', data=tech_df, ax=axes[1])
-  axes[1].set_title('Average PB Ratio by Group')
-  
-  sns.barplot(x='ESG_ranking', y='roa_ratio', data=tech_df, ax=axes[2])
-  axes[2].set_title('Average ROA Ratio by Group')
-  
-  sns.barplot(x='ESG_ranking', y='Volatility_sell', data=tech_df, ax=axes[3])  # Swapped 'Volatility_Buy' with 'Volatility_sell'
-  axes[3].set_title('Average stock sell by Group')
-  
-  # Adjust layout
-  plt.tight_layout()
-  
-  # Display the plot in Streamlit
-  st.pyplot(fig)
-  
- 
-  
-
 
 # - - - - - - - - - - - PREDICTION - - - - - - - - - - -
 elif app_mode == "Prediction":
