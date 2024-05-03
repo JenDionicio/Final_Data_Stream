@@ -240,10 +240,9 @@ elif app_mode == "Visualization":
   plt.tight_layout()
   
   # Display the plot in Streamlit
-  st.pyplot(fig)
+  tab2.pyplot(fig)
 
 
-  
   tab2.markdown('Differences of ESG Rankings')
 
   # Grouping based on condition
