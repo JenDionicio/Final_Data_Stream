@@ -179,12 +179,11 @@ elif app_mode == "Visualization":
       st.image(image_paths[current_image_index])
       st.write(messages[current_image_index])
   
-  button = st.button("Next Image")
+  button = tab1.button("Next Image")
   
   if button:
       update_image()
-      button2 = st.button("Next Image")
-      if button2:
+      if button:
         update_image()
     
   # # Add a button to change the image and message
